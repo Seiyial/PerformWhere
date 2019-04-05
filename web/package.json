@@ -8,12 +8,19 @@
   "license": "UNLICENSED",
   "devDependencies": {
     "luxon": "^1.12.0",
+    "node-sass": "^4.11.0",
     "parcel-bundler": "^1.12.3"
   },
   "scripts": {
-    "dev": "yarn run parcel watch index.html"
+    "start": "cd .. && yarn run start",
+    "dev": "yarn run parcel watch index.html --out-dir ../dist --public-url ./dist/"
   },
   "nodemonConfig": {
-    "ignore": ["node_modules/*"]
+    "ignore": [
+      "node_modules/*"
+    ]
+  },
+  "dependencies": {
+    "bulma": "^0.7.4"
   }
 }

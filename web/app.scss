@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway|Quattrocento+Sans');
+
+$family-sans-serif: 'Quattrocento Sans', 'Helvetica Neue', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+
+$syx-font: 'Raleway', $family-sans-serif;
+
+@import './node_modules/bulma/bulma.sass';
+
+.syx-font {
+	font-family: $syx-font;
+}
