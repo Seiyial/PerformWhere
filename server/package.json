@@ -1,17 +1,16 @@
 {
-  "name": "performwhere",
+  "name": "performwhere-server",
   "version": "1.0.0",
   "description": "Where to perform!? Compare prices of regular concert hall for your performance date(s).",
   "main": "index.js",
   "repository": "https://github.com/Seiyial/PerformWhere",
   "author": "Seiyial <seiyial@seiyianworks.io>",
   "license": "UNLICENSED",
-  "devDependencies": {
-    "concurrently": "^4.1.0"
+  "dependencies": {
+    "nodemon": "^1.18.10",
+    "simples": "^0.9.0-alpha-8"
   },
   "scripts": {
-    "start": "concurrently \"yarn start-web\" \"yarn start-server\"",
-    "start-web": "cd web && yarn dev",
-    "start-server": "cd server && yarn dev"
+    "dev": "nodemon index.js"
   }
 }
