@@ -1,0 +1,9 @@
+{
+  "name": "PerformWhere",
+  "version": "1.0.0",
+  "description": "Where to perform!? Compare prices of regular concert hall for your performance date(s).",
+  "main": "index.js",
+  "repository": "https://github.com/Seiyial/PerformWhere",
+  "author": "Seiyial <seiyial@seiyianworks.io>",
+  "license": "UNLICENSED"
+}
