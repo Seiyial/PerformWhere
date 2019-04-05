@@ -13,7 +13,7 @@
   },
   "scripts": {
     "start": "cd .. && yarn run start",
-    "dev": "yarn run parcel watch index.html --out-dir ../dist --public-url ./dist/"
+    "dev": "yarn run parcel watch index.html --out-dir ../dist"
   },
   "nodemonConfig": {
     "ignore": [
