@@ -4,6 +4,7 @@ const apiGateway = (conn) => {
 
 	// set response Content-Type
 	conn.type('application/json')
+
 	conn.parse({
 		json: (err, incoming) => {
 			if (err) {
@@ -11,7 +12,8 @@ const apiGateway = (conn) => {
 			} else {
 				// Package Query as a single object so that Query modules will be able to resolve the API on their own
 				const resolve = (result, statusCode = 200) => resoveAPI(conn, result, statusCode)
-				const Context = (({ query, params, auth }) => ({ query, params, auth, resolve }))(incoming)
+				const { query, params, auth } = incoming
+				const Context = { query, params, auth, resolve }
 
 				performQuery(query, Context)
 			}
