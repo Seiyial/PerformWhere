@@ -8,8 +8,8 @@
   "license": "UNLICENSED",
   "devDependencies": {
     "luxon": "^1.12.0",
-    "node-sass": "^4.11.0",
-    "parcel-bundler": "^1.12.3"
+    "parcel-bundler": "^1.12.3",
+    "sass": "^1.17.4"
   },
   "scripts": {
     "start": "cd .. && yarn run start",
@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "bulma": "^0.7.4"
+    "bulma": "^0.7.4",
+    "material-components-web": "^1.1.0"
   }
 }

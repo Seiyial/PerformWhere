@@ -1,11 +1,17 @@
-@import url('https://fonts.googleapis.com/css?family=Raleway|Quattrocento+Sans');
+// @import url('https://fonts.googleapis.com/css?family=Raleway|Quattrocento+Sans');
 
-$family-sans-serif: 'Quattrocento Sans', 'Helvetica Neue', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+// $family-sans-serif: 'Quattrocento Sans', 'Helvetica Neue', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
 
-$syx-font: 'Raleway', $family-sans-serif;
+// $syx-font: 'Raleway', $family-sans-serif;
 
-@import './node_modules/bulma/bulma.sass';
+// @import './node_modules/bulma/bulma.sass';
 
-.syx-font {
-	font-family: $syx-font;
-}
+// .syx-font {
+// 	font-family: $syx-font;
+// }
+
+@import '@material/button/mdc-button';
+@import '@material/card/mdc-card';
+@import '@material/typography/mdc-typography';
+@import '@material/layout-grid/mdc-layout-grid';
+@import '@material/fab/mdc-fab';
