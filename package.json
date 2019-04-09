@@ -14,5 +14,8 @@
     "start-web": "cd web && yarn dev",
     "start-server": "cd server && yarn dev",
     "i": "echo '(1) yarn install WEB' && cd web && yarn && cd ../server && echo '(2) yarn install SERVER' && yarn"
+  },
+  "alias": {
+    "@material": "./node_modules/@material"
   }
 }
