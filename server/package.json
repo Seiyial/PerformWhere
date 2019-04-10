@@ -8,6 +8,7 @@
   "license": "UNLICENSED",
   "dependencies": {
     "nodemon": "^1.18.10",
+    "public-holidays": "^0.2.2",
     "simples": "^0.9.0-alpha-8"
   },
   "scripts": {

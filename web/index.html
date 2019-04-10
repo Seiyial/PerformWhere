@@ -1,114 +1,121 @@
-<!--<html>
-
+<html>
 	<body>
-		<script src="./app.js"></script>
-
 		<div class="container">
-			<div class="section">
-				<h1 class="title is-1 has-text-centered has-text-weight-light">
-					Perform Where?
-				</h1>
-				<h1 class="has-text-info subtitle has-text-centered has-text-weight-light syx-font">
-					<a class="has-text-info" href="https://seiyianworks.io" target="_blank">
-						made by SYXWORKS
-					</a>
-				</h1>
+			<div class="pt-2 pb-1">
+				<h1 class="title has-text-primary is-1 has-text-weight-light t-ctr">Perform Where?</h1>
 			</div>
+			<h1 class="pw-dedication has-text-info subtitle has-text-centered has-text-weight-light syx-font">
+				made with ❤️ for
+				<a href="https://www.facebook.com/AudioImageWindEnsemble/" target="_blank">
+					AudioImage Wind Ensemble
+				</a>
+				by
+				<a href="https://seiyianworks.io" target="_blank">
+					SYXWORKS
+				</a>🦉
+				<br>
+				All the SG community bands & orchestras too!
+			</h1>
+		</div>
+		
+		<div class="pw-interface-wrapper">
+			<div class="pw-interface">
 
-			<div id="pw-form" class="section">
+				<div class="pw-level mb-2">
+					<span class="label">0.</span>
+					<span>This is a/an: </span>
+					<div class="select pw-select is-medium within-grid">
+						<select>
+							<option value="non-profit-arts">Arts Event (non-profit group)</option>
+							<option value="profit-arts">Arts Event (by a for-profit group)</option>
+							<option value="fundraising">Fundraising Event</option>
+							<option value="private">Non-Arts / Private Event</option>
+						</select>
+					</div>
+				</div>
+
+
+				<div class="pw-level mb-2">
+					<span class="label">1.</span>
+					<span>Concert Duration: <b>up to</b></span>
+					<div class="select pw-select is-medium within-grid">
+						<select>
+							<option value="0">(use minimum)</option>
+							<option value="1">1 h</option>
+							<option value="2">2 h</option>
+							<option value="3" selected="selected">3 h</option>
+							<option value="4">4 h</option>
+							<option value="5">5 h</option>
+							<option value="6">6 h</option>
+							<option value="7">7 h</option>
+							<option value="8">8 h</option>
+							<option value="9">9 h</option>
+							<option value="10">10 h</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="pw-level mb-2">
+					<span class="label">2.</span>
+					<span>Rehearsal / Soundcheck Duration: <b>up to</b></span>
+					<div class="select pw-select is-medium within-grid">
+						<select>
+							<option value="0" selected="selected">(use minimum)</option>
+							<option value="1">1 h</option>
+							<option value="2">2 h</option>
+							<option value="3">3 h</option>
+							<option value="4">4 h</option>
+							<option value="5">5 h</option>
+							<option value="6">6 h</option>
+							<option value="7">7 h</option>
+							<option value="8">8 h</option>
+							<option value="9">9 h</option>
+							<option value="10">10 h</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="pw-level mb-2">
+					<span class="label">3.</span>
+					<span>Desired date of rehearsal:</span>
+					<input type="date" class="input pw-input is-medium">
+				</div>
 				
-			</div>
+				<hr>
 
-			<div id="pw-results" class="section">
+				<div class="columns is-multiline is-mobile">
+					<label class="column is-3-tablet is-6-mobile">
+						<span class="label has-text-weight-normal">No. of Dark days:</span>
+						<input type="text" class="input pw-input has-text-centered" placeholder="0">
+						<p class="help">N. days hall is reserved for setup but not used</p>
+					</label>
+					<label class="column is-3-tablet is-6-mobile">
+						<span class="label has-text-weight-normal">No. of Tech. crew:</span>
+						<input type="text" class="input pw-input has-text-centered" placeholder="(min)">
+					</label>
+					<label class="column is-3-tablet is-6-mobile">
+						<span class="label has-text-weight-normal">No. of Ushers:</span>
+						<input type="text" class="input pw-input has-text-centered" placeholder="(min)">
+					</label>
+					<label class="column is-3-tablet is-6-mobile">
+						<span class="label has-text-weight-normal has-text-grey">Coming soon</span>
+						<input type="text" class="input pw-input has-text-centered" disabled>
+					</label>
+				</div>
 
-			</div>
+				<hr class="mt-1">
 
-			<div id="pw-footer" class="section">
+				<p class="has-text-centered">
+					<button class="button is-primary is-medium" onclick="window.syxPW.submitForm()">
+						Get dem Concert Hall Rates!
+					</button>
+				</p>
+
 
 			</div>
 		</div>
+
+		<script src="./app.js"></script>
 	</body>
 
-</html>-->
-
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Elements</title>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-    <link rel="stylesheet" href="app.scss" />
-    <style>
-      .cards {
-        display: flex;
-        flex-wrap: wrap;
-      }
-
-      .element-card {
-        width: 20em;
-        margin: 16px;
-      }
-
-      .element-card > .mdc-card__media {
-        height: 9em;
-      }
-
-      #demo-absolute-fab {
-        position: fixed;
-        bottom: 1rem;
-        right: 1rem;
-        z-index: 1;
-      }
-    </style>
-  </head>
-  <body class="mdc-typography">
-    <h1>Choose your element</h1>
-    <div class="cards">
-      <div class="mdc-card element-card earth">
-        <div class="mdc-card__media">
-          <div class="mdc-card__media-content">
-            <h1 class="mdc-typography--headline4">Earth</h1>
-            <h2 class="mdc-typography--headline6">A solid decision.</h2>
-          </div>
-        </div>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        </p>
-      </div>
-      <div class="mdc-card element-card wind">
-        <div class="mdc-card__media">
-          <h1 class="mdc-typography--headline4">Wind</h1>
-          <h2 class="mdc-typography--headline6">Stormy weather ahead.</h2>
-        </div>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        </p>
-      </div>
-      <div class="mdc-card element-card fire">
-        <div class="mdc-card__media">
-          <h1 class="mdc-typography--headline4">Fire</h1>
-          <h2 class="mdc-typography--headline6">Hot-headed much?</h2>
-        </div>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        </p>
-      </div>
-      <div class="mdc-card element-card water">
-        <div class="mdc-card__media">
-          <h1 class="mdc-typography--headline4">Water</h1>
-          <h2 class="mdc-typography--headline6">Go with the flow.</h2>
-        </div>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        </p>
-      </div>
-    </div>
-    <button class="mdc-fab" id="demo-absolute-fab" aria-label="Favorite">
-      <span class="mdc-fab__icon material-icons">favorite</span>
-    </button>
-  </body>
 </html>

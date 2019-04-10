@@ -1,0 +1,96 @@
+// PerformWhere UI
+@import "@material/card/mdc-card";
+
+.pw-dedication {
+	a { color: $color2dark; }
+}
+
+.pw-interface-wrapper {
+	width: 100%;
+	padding: 5vh 5vw;
+	display: flex;
+	justify-content: center;
+}
+
+.pw-interface {
+	width: 100%;
+	max-width: 800px;
+	// border: 1px solid $color1;
+	// border-radius: 1.5em;
+	padding: 2em;
+	@extend .mdc-card;
+	@include mdc-card-shape-radius(1em, false);
+}
+
+.pw-interface--clickable {
+	@extend .mdc-card__primary-action;
+	
+	// Compulsorily override Material design enforcement of 0 border radius from .mdc-card__primary-action
+	border-radius: 1em !important;
+}
+
+input.pw-input {
+	@extend .input;
+
+	&.within-grid {
+		// for use in .pw-form-griditem
+		width: auto;
+		flex: 1 0 2em;
+		text-align: center;
+	}
+}
+
+div.select.pw-select {
+	&._short { max-width: 6rem; }
+	&._med { max-width: 10rem; }
+	&._long { max-width: 14rem; }
+
+	&> select {
+		font-weight: bold;
+		text-align: center;
+		color: $color2; // override bulma defaults
+		
+		&:hover {
+			border-color: $primary;
+		}
+
+	}
+
+	&:not(.is-multiple):not(.is-loading):hover::after {
+		border-color: $primary;
+	}
+
+	&:not(.is-multiple):not(.is-loading)::after {
+		border-color: $primary;
+	}
+
+	// &:not(.is-multiple):not(.is-loading):active::after {
+	// 	border-color: rgba(0,0,0,0.4);
+	// }
+}
+
+input.input.pw-input {
+	max-width: 14rem;
+	font-weight: bold;
+	color: $color2;
+
+	&:focus {
+		border-color: $color1;
+	}
+
+	&::after {
+		border-color: $color1;
+		color: $color1;
+	}
+}
+
+.pw-level {
+	display: flex;
+	align-items: baseline;
+
+	span {
+		font-size: 1.25rem;
+		margin: 0 0.5rem;
+	}
+}
+

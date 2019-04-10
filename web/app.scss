@@ -1,17 +1,30 @@
-// @import url('https://fonts.googleapis.com/css?family=Raleway|Quattrocento+Sans');
+@import url("https://fonts.googleapis.com/icon?family=Raleway|Source+Serif+Pro");
 
-// $family-sans-serif: 'Quattrocento Sans', 'Helvetica Neue', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+$family-sans-serif: 'Source Serif Pro', 'Helvetica Neue', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+$syx-font: 'Raleway', $family-sans-serif;
+$color1: #EF4F1F;
+$color2: #0097a7;
+$color2dark: #006b77;
+$bg: #FEEEE9;
 
-// $syx-font: 'Raleway', $family-sans-serif;
+$primary: $color1;
+$info: $color2;
+$link: $color2;
+$syx_spacer: 16px;
 
-// @import './node_modules/bulma/bulma.sass';
+@import './styles/syx_layouts.scss';
+@import "./styles/pw_ui.scss";
+@import './node_modules/bulma/bulma.sass';
 
-// .syx-font {
-// 	font-family: $syx-font;
-// }
+.syx-font {
+	font-family: $syx-font;
+}
 
-@import '@material/button/mdc-button';
-@import '@material/card/mdc-card';
-@import '@material/typography/mdc-typography';
-@import '@material/layout-grid/mdc-layout-grid';
-@import '@material/fab/mdc-fab';
+body {
+	padding-top: 2vh;
+	background-color: $bg;
+}
+
+body b {
+	color: $color1;
+}
