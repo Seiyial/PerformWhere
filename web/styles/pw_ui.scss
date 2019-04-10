@@ -88,9 +88,53 @@ input.input.pw-input {
 	display: flex;
 	align-items: baseline;
 
-	span {
+	.label, .qntext {
 		font-size: 1.25rem;
-		margin: 0 0.5rem;
+		// margin: 0 0.5rem;
 	}
+
+	.label {
+		margin-right: 1rem;
+	}
+
+	.qntext {
+		margin-right: 0.5rem;
+	}
+}
+
+@media (max-width: 768px) {
+	.pw-level {
+		display: block;
+		margin-bottom: 2em;
+	}
+
+	span.label {
+		display: inline;
+	}
+
+	input.input.pw-input {
+		max-width: 100%;
+		width: 100%;
+	}
+
+	div.select.pw-select {
+		max-width: 100%;
+		width: 100%;
+		
+		select {
+			max-width: 100%;
+			width: 100%;
+
+			&._short, &._med, &._long {
+				max-width: 100%;
+				width: 100%;
+			}
+		}
+	}
+}
+
+.br-mobile-only { display: none; }
+@media (max-width: 768px) {
+	.br-mobile-only { display: inherit }
 }
 
