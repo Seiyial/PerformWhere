@@ -40,7 +40,7 @@
 					<span class="qntext">Concert Duration:</span>
 					<span class="qntext"><b>up to</b></span>
 					<div class="select pw-select is-medium within-grid">
-						<select id="input-event-duration">
+						<select id="input-duration">
 							<option value="0">(use minimum)</option>
 							<option value="1">1 h</option>
 							<option value="2">2 h</option>
@@ -62,7 +62,7 @@
 					<span class="qntext"><b>up to</b></span>
 					
 					<div class="select pw-select is-medium within-grid">
-						<select id="input-event-soundcheck-duration">
+						<select id="input-soundcheck-duration">
 							<option value="0" selected="selected">(use minimum)</option>
 							<option value="1">1 h</option>
 							<option value="2">2 h</option>
@@ -81,7 +81,7 @@
 				<div class="pw-level mb-2">
 					<span class="label">4.</span>
 					<span class="qntext">Desired date of concert:</span>
-					<input type="date" class="input pw-input is-medium" id="event-date">
+					<input type="date" class="input pw-input is-medium" id="input-date">
 				</div>
 				
 				<hr>
@@ -89,16 +89,16 @@
 				<div class="columns is-multiline is-mobile">
 					<label class="column is-3-tablet is-6-mobile">
 						<span class="label has-text-weight-normal">No. of Dark days:</span>
-						<input type="text" class="input pw-input has-text-centered" placeholder="0">
+						<input type="text" class="input pw-input has-text-centered" placeholder="0" id="input-num-darkdays">
 						<p class="help">N. days hall is reserved for setup but not used</p>
 					</label>
 					<label class="column is-3-tablet is-6-mobile">
 						<span class="label has-text-weight-normal">No. of Tech. crew:</span>
-						<input type="text" class="input pw-input has-text-centered" placeholder="(min)">
+						<input type="text" class="input pw-input has-text-centered" placeholder="(min)" id="input-num-techcrews">
 					</label>
 					<label class="column is-3-tablet is-6-mobile">
 						<span class="label has-text-weight-normal">No. of Ushers:</span>
-						<input type="text" class="input pw-input has-text-centered" placeholder="(min)">
+						<input type="text" class="input pw-input has-text-centered" placeholder="(min)" id="input-num-ushers">
 					</label>
 					<label class="column is-3-tablet is-6-mobile">
 						<span class="label has-text-weight-normal has-text-grey">Coming soon</span>
