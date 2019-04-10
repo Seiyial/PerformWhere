@@ -22,10 +22,10 @@
 			<div class="pw-interface">
 
 				<div class="pw-level mb-2">
-					<span class="label">0.</span>
+					<span class="label">1.</span>
 					<span class="qntext">This is a/an: </span>
 					<div class="select pw-select is-medium within-grid">
-						<select>
+						<select id="input-event-type">
 							<option value="non-profit-arts">Arts Event (non-profit group)</option>
 							<option value="profit-arts">Arts Event (by a for-profit group)</option>
 							<option value="fundraising">Fundraising Event</option>
@@ -36,11 +36,11 @@
 					
 					
 				<div class="pw-level mb-2">
-					<span class="label">1.</span>
+					<span class="label">2.</span>
 					<span class="qntext">Concert Duration:</span>
 					<span class="qntext"><b>up to</b></span>
 					<div class="select pw-select is-medium within-grid">
-						<select>
+						<select id="input-event-duration">
 							<option value="0">(use minimum)</option>
 							<option value="1">1 h</option>
 							<option value="2">2 h</option>
@@ -57,12 +57,12 @@
 				</div>
 
 				<div class="pw-level mb-2">
-					<span class="label">2.</span>
+					<span class="label">3.</span>
 					<span class="qntext">Rehearsal / Soundcheck Duration:</span>
 					<span class="qntext"><b>up to</b></span>
 					
 					<div class="select pw-select is-medium within-grid">
-						<select>
+						<select id="input-event-soundcheck-duration">
 							<option value="0" selected="selected">(use minimum)</option>
 							<option value="1">1 h</option>
 							<option value="2">2 h</option>
@@ -79,9 +79,9 @@
 				</div>
 
 				<div class="pw-level mb-2">
-					<span class="label">3.</span>
-					<span class="qntext">Desired date of rehearsal:</span>
-					<input type="date" class="input pw-input is-medium">
+					<span class="label">4.</span>
+					<span class="qntext">Desired date of concert:</span>
+					<input type="date" class="input pw-input is-medium" id="event-date">
 				</div>
 				
 				<hr>
