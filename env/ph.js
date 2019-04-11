@@ -5,9 +5,9 @@ module.exports = {
 		coverage: {
 			start: '2019-01-01',
 			end: '2020-12-31'
-		}
+		},
 		lastUpdated: '2019-04-11'
-	}
+	},
 	list: {
 		'2019-01-01': "New Year's Day",
 		'2019-02-04': 'Chinese New Year (Eve)',
@@ -15,12 +15,12 @@ module.exports = {
 		'2019-02-06': 'Chinese New Year Day 2',
 		'2019-04-18': 'Good Friday (Eve)',
 		'2019-04-19': 'Good Friday',
-		'2019-04-30': 'Labour Day (Eve)'
+		'2019-04-30': 'Labour Day (Eve)',
 		'2019-05-01': 'Labour Day',
 		'2019-05-18': 'Vesak Day (Eve)',
 		'2019-05-19': 'Vesak Day',
 		'2019-05-20': 'Vesak Day (Observed)',
-		'2019-06-04': 'Hari Raya Puasa (Eve)'
+		'2019-06-04': 'Hari Raya Puasa (Eve)',
 		'2019-06-05': 'Hari Raya Puasa',
 		'2019-08-08': 'National Day (Eve)',
 		'2019-08-09': 'National Day',

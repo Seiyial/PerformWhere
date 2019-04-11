@@ -1,13 +1,14 @@
 // PerformWhere Request Object API
 
 class PWRequest {
-	// 'eventType', 'duration', 'soundcheckDuration',
-	//	'date', 'numDarkDays', 'numTechCrew', 'numUshers'
-	constructor(params) {
+	// Constructor makes pre-existing properties accessible and attaches a results object
+	// PWRequest class attaches instance methods to the request data, and wraps results within itself,
+	// allowing for easy calculation.
+	constructor(reqData) {
 		const {
 			eventType, duration, soundcheckDuration, date, numDarkDays, numTechCrew, numUshers,
 			lxDate, peakTypes, errors
-		} = params
+		} = reqData
 		this.evType = eventType
 		this.dur = duration
 		this.scDur = soundcheckDuration
@@ -18,15 +19,16 @@ class PWRequest {
 		this.lxDate = lxDate
 		this.peakTypes = peakTypes
 		this.errors = errors
+		this.results = {}
 		return this
 	}
 
-	// test if PWRequest date fulfills at least one of the specified (flagged) peak conditions (e.g. PH)
+	// test if PWRequest date fulfills at least one of the specified peak conditions (e.g. PH)
 	// eg usage: if (request.isPk('Friday', 'Eve of PH', 'PH')) { ... }
 	// Accepted Peak Types
-	isPk(...flaggedPeaks) {
+	isPeak(...specifiedPeaks) {
 		let match = null
-		flaggedPeaks.forEach((flaggedPeak) => {
+		specifiedPeaks.forEach((flaggedPeak) => {
 			if (this.peakTypes.includes(flaggedPeak)) {
 				match = match || []
 				match.push(flaggedPeak)
@@ -35,13 +37,32 @@ class PWRequest {
 		return match
 	}
 
-	calc(factor, { min, rate }) {
+	includeCH(chID, info) {
+		this.results[chID] = {
+			info,
+			fees: []
+		}
+		return this
+	}
+
+	calc(chID, factor, { label, description, rate, min }) {
+		const calcItem = { label, description, rate, qty: this[factor], useMin: null, result: null, error: false }
+		
 		if (this[factor] === undefined) {
 			this.errors.push(`There was an error calculating ${factor}. Min: ${min}, Rate: ${rate}. Please submit a bug (link at bottom). Thanks for your help!`)
+			calcItem.result = 0
+			calcItem.error = true
+			return this.results[ch]
 		}
-		let val = this[factor]
-		if (val < min) { val = min }
-		return val * rate
+
+		let qty = this[factor]
+		if (qty < min) { qty = min }
+		calcItem.label = label
+		calcItem.description = description
+		calcItem.result = qty * rate
+
+		this.results[chID].fees.push(calcItem)
+		return this
 	}
 }
 

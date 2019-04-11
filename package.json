@@ -12,14 +12,10 @@
     "luxon": "^1.12.1"
   },
   "scripts": {
-    "gen-secret": "cd env && node generateSecret.js",
-    "gen-ph": "cd env && node generatePH.js",
+    "gensecret": "cd env && node generateSecret.js",
     "start": "concurrently \"yarn start-web\" \"yarn start-server\"",
     "start-web": "cd web && yarn dev",
     "start-server": "cd server && yarn dev",
     "i": "echo '(1) yarn install WEB' && cd web && yarn && cd ../server && echo '(2) yarn install SERVER' && yarn"
-  },
-  "alias": {
-    "@material": "./node_modules/@material"
   }
 }

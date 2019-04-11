@@ -4,7 +4,5 @@ module.exports = {
 		location: 'CBD',
 		seating: '1630 + 197 (Gallery)',
 	},
-	calcFares: (req) => {
-		
-	}
+	
 }

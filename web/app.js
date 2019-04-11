@@ -21,10 +21,10 @@ const submitForm = () => {
 		params[i] = document.getElementById(`input-${i}`).value
 	})
 
-	console.log('Params', params);
+	console.log('Params', params)
 	
-	axios.post('/api', { params, query: 'calculate_by_reqs', auth: sk })
-	.then((reply) => console.log('(*) calculate_by_reqs', reply.data))
+	axios.post('/api', { params, query: 'get_prices_by_reqs', auth: sk })
+	.then((reply) => console.log('(*) get_prices_by_reqs', reply.data))
 	.catch(console.warn)
 	.finally(() => setLoading(false))
 }
@@ -37,9 +37,9 @@ const setLoading = (bool = true) => {
 	}
 }
 
-axios
-.post('/api', { 'name': 'list_concert_halls' })
-.then((reply) => console.log('REply', reply))
-.catch(console.warn)
+// axios
+// .post('/api', { 'name': 'list_concert_halls' })
+// .then((reply) => console.log('REply', reply))
+// .catch(console.warn)
 
 window.syxPW = { submitForm }

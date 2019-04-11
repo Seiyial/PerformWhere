@@ -1,6 +1,5 @@
 const {
-	list_concert_halls_query,
-	calculate_by_reqs_query
+	queryPricesByReqs
 } = require('./lib/calculators')
 
 const apiGateway = (conn) => {
@@ -25,6 +24,7 @@ const apiGateway = (conn) => {
 }
 
 const resolveAPI = (conn, result, statusCode = 200) => {
+	console.log(`(✔) ResolveAPI | Status ${statusCode} | result ${JSON.stringify(result)}`)
 	conn.status(statusCode)
 	conn.send(JSON.stringify(result))
 }
@@ -35,9 +35,8 @@ const resolveAPI = (conn, result, statusCode = 200) => {
 
 const performQuery = (Context) => {
 	switch (Context.query) {
-		case 'list_concert_halls': list_concert_halls_query(Context); break;
-		case 'calculate_by_reqs': calculate_by_reqs_query(Context); break;
-		default: Context.resolve({ success: false, errMsg: 'Unknown Qy' }, 400)
+		case 'get_prices_by_reqs': queryPricesByReqs(Context); break;
+		default: Context.resolve({ success: false, errMsg: 'Unknown Qy ' + Context.query }, 400)
 	}
 }
 

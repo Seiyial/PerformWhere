@@ -4,17 +4,27 @@
 // Date => Luxon DateTime
 // Date occasions (weekday name, PH and/or Eve)
 
+// Also attach class methods (see PWRequest)
+
 const { DateTime, Interval } = require('luxon')
 const PH = require('../../../../env/ph')
 const PWRequest = require('./PWRequest')
 
+// Attach a better-featured DateTime object (powered by luxon) to easily handle the datetime logic
 const formatDate = (obj) => {
-	obj.lxDate = DateTime.fromISO(date)
+	obj.lxDate = DateTime.fromISO(obj.date)
 	return obj
 }
 
-const includeWeekday = (obj) => obj.peakTypes.push(obj.lxDate.toFormat('EEEE'))
+// Function to attach info on the weekday of the requested date to the request object.
+// Most Concert Halls have different rates for some days of the week such as Friday and the weekends.
+const includeWeekday = (obj) => {
+	obj.peakTypes.push(obj.lxDate.toFormat('EEEE'))
+	return obj
+}
 
+// Function to check for and attach the info on whether the date lies on a PH or Eve.
+// Most Concert Halls have different rates for PH and PH Eve.
 const includePH = (obj) => {
 	const { info: { coverage, lastUpdated }, list } = PH
 
@@ -38,18 +48,36 @@ const includePH = (obj) => {
 		}
 		obj.peakOccasion = phEvent
 	}
+	return obj
 }
 
-const formatParams = (Context) => {
-	let reqData = Context.params
+// Convert string data of certain fields into integers
+const formatNumbers = (obj) => {
+	[
+		'duration', 'soundcheckDuration',
+		'numDarkDays', 'numTechCrew', 'numUshers'
+	].forEach((c) => {
+		obj[c] = parseInt(obj[c])
+	})
+	return obj
+}
+
+// Macro-function to properly deliver the processed request
+// Usage from outside:
+// const formatRequest = require('../path/to/formatRequest')
+// Context.request = formatRequest(Context.params)
+const formatRequest = (params) => {
+	let reqData = params
 	reqData.peakTypes = []
 	reqData.errors = []
 	reqData = formatDate(reqData)
 	reqData = includeWeekday(reqData)
 	reqData = includePH(reqData)
-	Context.Request = new PWRequest(reqData)
+	reqData = formatNumbers(reqData)
 	
-	return Context
+	// Attach calculation logic by wrapping the PWRequest class
+	// for easier calculation later on
+	return new PWRequest(reqData)
 }
 
-module.exports = formatParams
+module.exports = formatRequest
