@@ -6,6 +6,7 @@
 
 const { DateTime, Interval } = require('luxon')
 const PH = require('../../../../env/ph')
+const PWRequest = require('./PWRequest')
 
 const formatDate = (obj) => {
 	obj.lxDate = DateTime.fromISO(date)
@@ -46,7 +47,9 @@ const formatParams = (Context) => {
 	reqData = formatDate(reqData)
 	reqData = includeWeekday(reqData)
 	reqData = includePH(reqData)
-
-} 
+	Context.Request = new PWRequest(reqData)
+	
+	return Context
+}
 
 module.exports = formatParams
