@@ -1,0 +1,1 @@
+module.exports = { sk: "$S52Zxp#4OphzErHtO8hpdXS6NqjlPB2" }

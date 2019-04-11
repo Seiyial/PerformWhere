@@ -10,6 +10,7 @@
     "concurrently": "^4.1.0"
   },
   "scripts": {
+    "gensecret": "node env/generate.js",
     "start": "concurrently \"yarn start-web\" \"yarn start-server\"",
     "start-web": "cd web && yarn dev",
     "start-server": "cd server && yarn dev",
