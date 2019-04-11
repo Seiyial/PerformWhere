@@ -4,5 +4,127 @@ module.exports = {
 		location: 'CBD',
 		seating: '1630 + 197 (Gallery)',
 	},
-	
+	resolveFees: (Request) => {
+		// 1. Concert Hall Rate
+		const ratesByType = {
+			'p-arts': {
+				perfBaseFee: [5800.00, 'If 18% of first $100k sales + 15% of subsequent sales exceeds $5.8k, it will cost that instead of $5.8k.'],
+				perfBaseHrs: 4.5,
+				perfAddHr: 900.00,
+				peakSurcharge: 1000.00,
+				peakDays: ['Friday', 'Saturday', 'PH Eve'],
+				rehBaseFee: 1400.00,
+				rehBaseHrs: 4,
+				rehAddHr: 390.00,
+				rehPeakSurcharge: 600.00,
+				darkDayRate: 1700.00
+			},
+			'np-arts': {
+				perfBaseFee: [3400.00, 'If 18% of first $100k sales + 15% of subsequent sales exceeds $3.4k, it will cost that instead of $3.4k.'],
+				perfBaseHrs: 4.5,
+				perfAddHr: 700.00,
+				peakSurcharge: 1000.00,
+				peakDays: ['Friday', 'Saturday', 'PH Eve'],
+				rehBaseFee: 1400.00,
+				rehBaseHrs: 4,
+				rehAddHr: 390.00,
+				rehPeakSurcharge: 600.00,
+				darkDayRate: 1700.00
+			},
+			'fundraising': {
+				perfBaseFee: [6000.00, 'flat fee']
+				perfBaseHrs: 4.5,
+				perfAddHr: 900.00,
+				peakSurcharge: 1000.00,
+				peakDays: ['Friday', 'Saturday', 'PH Eve'],
+				rehBaseFee: 1700.00,
+				rehBaseHrs: 4,
+				rehAddHr: 450.00,
+				rehPeakSurcharge: 600.00,
+				darkDayRate: 1700.00
+			},
+			'private': {
+				perfBaseFee: [9000.00, 'If ticketed, will take 18% of box office sales instead of $9000 if it exceeds $9000'],
+				perfBaseHrs: 4.5,
+				perfAddHr: 2500.00,
+				peakSurcharge: 1000.00,
+				peakDays: ['Friday', 'Saturday', 'PH Eve'],
+				rehBaseFee: 9000.00,
+				rehBaseHrs: 4,
+				rehAddHr: 2350.00,
+				rehPeakSurcharge: 1000.00,
+				darkDayRate: null
+			}
+		}
+
+		const r = ratesByType[Request.evType]
+		console.log('info: espCH rates', r)
+
+		const fees = []
+		
+		// Base Rate
+		fees.push(Request.calcBaseRate({
+			label: 'Concert',
+			description: r.perfBaseFee[1],
+			rate: r.perfBaseFee[0]
+			baseHrs: r.perfBaseHrs,
+		}))
+
+		// Additional Hours
+		if (Request.dur > r.perfBaseHrs) {
+			fees.push(Request.calcAddHrs({
+				label: 'Concert',
+				description: 'Additional per hour or part thereof'
+				qty: Math.ceil(r.perfBaseHrs - Request.dur),
+				rate: r.perfAddHr
+			}))
+		}
+
+		// Peak Surcharge
+		if (Request.isPeak(r.peakDays)) {
+			fees.push(Request.calcPeakSurcharge({
+				label: 'Concert'
+				peakDays: r.peakDays,
+				rate: r.peakSurcharge
+			}))
+		}
+
+		// Rehearsal Base Rate
+		fees.push(Request.calcBaseRate({
+			label: 'Rehearsal',
+			description: r.rehBaseFee[1],
+			rate: r.rehBaseFee[0]
+			baseHrs: r.rehBaseHrs,
+		}))
+
+		// Add Hrs
+		if (Request.rehDur > r.rehBaseHrs) {
+			fees.push(Request.calcAddHrs({
+				label: 'Rehearsal',
+				description: 'Additional per hour or part thereof'
+				qty: Math.ceil(r.rehBaseHrs - Request.rehDur),
+				rate: r.rehAddHr
+			}))
+		}
+
+		// Peak Surcharge
+		if (Request.isPeak(r.peakDays)) {
+			fees.push(Request.calcPeakSurcharge({
+				label: 'Rehearsal'
+				peakDays: r.peakDays,
+				rate: r.rehPeakSurcharge
+			}))
+		}
+
+		// Dark Days
+		if (Request.evType !== 'private' && Request.numDD > 0) {
+			fees.push(Request.calc({
+				label: 'Dark Day Rate',
+				qty: Request.numDD,
+				rate: r.darkDayRate
+			}))
+		}
+
+		// Tech Crew
+	}
 }

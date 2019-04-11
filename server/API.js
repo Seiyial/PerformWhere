@@ -24,7 +24,7 @@ const apiGateway = (conn) => {
 }
 
 const resolveAPI = (conn, result, statusCode = 200) => {
-	console.log(`(✔) ResolveAPI | Status ${statusCode} | result ${JSON.stringify(result)}`)
+	console.log(`✔ API Response | Status ${statusCode} | result ${JSON.stringify(result)}`)
 	conn.status(statusCode)
 	conn.send(JSON.stringify(result))
 }

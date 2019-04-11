@@ -1,8 +1,15 @@
 const formatRequest = require('../util/formatRequest')
+const { CHIDs, CHData } = require('../halls/all')
 
 module.exports = (Context) => {
-	Context.Request = formatRequest(Context.params)
+	const Request = formatRequest(Context.params)
 
-	const { resolve, Request } = Context
-	resolve({ success: true, data: { foo: 'Bar' }})
+	CHIDs.forEach((chID) => {
+		Request.addCH(chID, CHData[chID].info)
+	})
+
+	CHIDs.forEach((chID) => {
+		Request.recordReceipt(chID, CHData[chID].resolveFees)
+	})
+	console.log('REQUEST', Request)
 }

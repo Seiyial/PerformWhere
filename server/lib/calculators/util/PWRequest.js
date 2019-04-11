@@ -11,7 +11,7 @@ class PWRequest {
 		} = reqData
 		this.evType = eventType
 		this.dur = duration
-		this.scDur = soundcheckDuration
+		this.rehDur = soundcheckDuration
 		this.isoDate = date
 		this.numDD = numDarkDays
 		this.numTC = numTechCrew
@@ -24,9 +24,9 @@ class PWRequest {
 	}
 
 	// test if PWRequest date fulfills at least one of the specified peak conditions (e.g. PH)
-	// eg usage: if (request.isPk('Friday', 'Eve of PH', 'PH')) { ... }
+	// eg usage: if (request.isPk(['Friday', 'Eve of PH', 'PH'])) { ... }
 	// Accepted Peak Types
-	isPeak(...specifiedPeaks) {
+	isPeak(specifiedPeaks) {
 		let match = null
 		specifiedPeaks.forEach((flaggedPeak) => {
 			if (this.peakTypes.includes(flaggedPeak)) {
@@ -37,7 +37,7 @@ class PWRequest {
 		return match
 	}
 
-	includeCH(chID, info) {
+	addCH(chID, info) {
 		this.results[chID] = {
 			info,
 			fees: []
@@ -45,24 +45,74 @@ class PWRequest {
 		return this
 	}
 
-	calc(chID, factor, { label, description, rate, min }) {
-		const calcItem = { label, description, rate, qty: this[factor], useMin: null, result: null, error: false }
+	resolveFees(chID, feesCompilerFunction) {
+		const fees = feesCompilerFunction(this)
+		this.results[chID].fees = fees
+	}
+
+	calc({ label, description, rate, min, qty }) {
+		const calcItem = {
+			label, description, rate,
+			qty: null,
+			usedMin: null,
+			result: null,
+			error: false
+		}
 		
-		if (this[factor] === undefined) {
+		if (qty === undefined) {
 			this.errors.push(`There was an error calculating ${factor}. Min: ${min}, Rate: ${rate}. Please submit a bug (link at bottom). Thanks for your help!`)
 			calcItem.result = 0
 			calcItem.error = true
 			return this.results[ch]
 		}
 
-		let qty = this[factor]
-		if (qty < min) { qty = min }
-		calcItem.label = label
-		calcItem.description = description
+		if (min && qty < min) {
+			qty = min
+			calcItem.usedMin = true
+		}
 		calcItem.result = qty * rate
 
-		this.results[chID].fees.push(calcItem)
-		return this
+		return calcItem
+	}
+
+	calcBaseRate({ label, description, rate, baseHrs }) {
+		const calcItem = { description, rate }
+		calcItem.label = label || 'Base Rate'
+		if (label === 'Concert' || label === 'Soundcheck') {
+			calcItem.label = `${label} Base Rate`
+		}
+		calcItem.qty = `${baseHrs}h`
+		calcItem.usedMin = true
+		calcItem.result = rate
+		return calcItem
+	}
+
+	// Calculator for additional hrs
+	// IF you'd like to round the qty up or down, do it before sending it into this function
+	// rate and qty MUST NOT be string
+	calcAddHr({ label, description, rate, qty }) {
+		const calcItem = { description, rate }
+		calcItem.label = label || 'Additional Hrs'
+		if (label === 'Concert' || label === 'Soundcheck') {
+			calcItem.label = `${label} Additional Hrs`
+		}
+		calcItem.usedMin = false // if true, there'd be no addHr
+		calcItem.result = rate * qty
+		return calcItem
+	}
+
+	// creates a peak surcharge calcItem.
+	// > label: feel free to input 'Concert' or 'Soundcheck' or nothing at all, and it will prefill for you.
+	// rate and qty MUST NOT be string
+	calcPeakSurcharge({ label, description, rate, qty }) {
+		const calcItem = { description }
+		calcItem.qty = qty || 1
+		calcItem.label = label || 'Peak Surcharge'
+		if (label === 'Concert' || label === 'Soundcheck') {
+			calcItem.label = `${label} Peak Surcharge`
+		}
+		calcItem.result = calcItem.qty * rate
+		return calcItem
 	}
 }
 
