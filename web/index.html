@@ -25,7 +25,7 @@
 					<span class="label">1.</span>
 					<span class="qntext">This is a/an: </span>
 					<div class="select pw-select is-medium within-grid">
-						<select id="input-event-type">
+						<select id="input-eventType">
 							<option value="non-profit-arts">Arts Event (non-profit group)</option>
 							<option value="profit-arts">Arts Event (by a for-profit group)</option>
 							<option value="fundraising">Fundraising Event</option>
@@ -62,7 +62,7 @@
 					<span class="qntext"><b>up to</b></span>
 					
 					<div class="select pw-select is-medium within-grid">
-						<select id="input-soundcheck-duration">
+						<select id="input-soundcheckDuration">
 							<option value="0" selected="selected">(use minimum)</option>
 							<option value="1">1 h</option>
 							<option value="2">2 h</option>
@@ -89,16 +89,16 @@
 				<div class="columns is-multiline is-mobile">
 					<label class="column is-3-tablet is-6-mobile">
 						<span class="label has-text-weight-normal">No. of Dark days:</span>
-						<input type="text" class="input pw-input has-text-centered" placeholder="0" id="input-num-darkdays">
+						<input type="text" class="input pw-input has-text-centered" placeholder="0" id="input-numDarkDays">
 						<p class="help">N. days hall is reserved for setup but not used</p>
 					</label>
 					<label class="column is-3-tablet is-6-mobile">
 						<span class="label has-text-weight-normal">No. of Tech. crew:</span>
-						<input type="text" class="input pw-input has-text-centered" placeholder="(min)" id="input-num-techcrews">
+						<input type="text" class="input pw-input has-text-centered" placeholder="(min)" id="input-numTechCrew">
 					</label>
 					<label class="column is-3-tablet is-6-mobile">
 						<span class="label has-text-weight-normal">No. of Ushers:</span>
-						<input type="text" class="input pw-input has-text-centered" placeholder="(min)" id="input-num-ushers">
+						<input type="text" class="input pw-input has-text-centered" placeholder="(min)" id="input-numUshers">
 					</label>
 					<label class="column is-3-tablet is-6-mobile">
 						<span class="label has-text-weight-normal has-text-grey">Coming soon</span>
@@ -109,11 +109,10 @@
 				<hr class="mt-1">
 
 				<p class="has-text-centered">
-					<button class="button is-primary is-medium" onclick="window.syxPW.submitForm()">
-						Get dem Concert Hall Rates!
+					<button id="submit-button" class="button is-primary is-medium" onclick="window.syxPW.submitForm()">
+						Get the Concert Hall Prices!
 					</button>
 				</p>
-
 
 			</div>
 		</div>

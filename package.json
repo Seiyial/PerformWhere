@@ -7,10 +7,13 @@
   "author": "Seiyial <seiyial@seiyianworks.io>",
   "license": "UNLICENSED",
   "devDependencies": {
-    "concurrently": "^4.1.0"
+    "@mobylogix/public-holidays": "^0.1.2",
+    "concurrently": "^4.1.0",
+    "luxon": "^1.12.1"
   },
   "scripts": {
-    "gensecret": "node env/generate.js",
+    "gen-secret": "cd env && node generateSecret.js",
+    "gen-ph": "cd env && node generatePH.js",
     "start": "concurrently \"yarn start-web\" \"yarn start-server\"",
     "start-web": "cd web && yarn dev",
     "start-server": "cd server && yarn dev",

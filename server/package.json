@@ -7,8 +7,8 @@
   "author": "Seiyial <seiyial@seiyianworks.io>",
   "license": "UNLICENSED",
   "dependencies": {
+    "luxon": "^1.12.1",
     "nodemon": "^1.18.10",
-    "public-holidays": "^0.2.2",
     "simples": "^0.9.0-alpha-8"
   },
   "scripts": {

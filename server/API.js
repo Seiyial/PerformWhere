@@ -1,4 +1,7 @@
-const { queryListConcertHalls } = require('./lib/calculators')
+const {
+	list_concert_halls_query,
+	calculate_by_reqs_query
+} = require('./lib/calculators')
 
 const apiGateway = (conn) => {
 
@@ -8,14 +11,14 @@ const apiGateway = (conn) => {
 	conn.parse({
 		json: (err, incoming) => {
 			if (err) {
-				conn.send(JSON.stringify({ success: false, errMsg: 'Issue handling your request' }))
+				resolveAPI({ success: false, errMsg: 'Issue handling your request' }, 400)
 			} else {
-				// Package Query as a single object so that Query modules will be able to resolve the API on their own
-				const resolve = (result, statusCode = 200) => resoveAPI(conn, result, statusCode)
+				// Package Query as a single object so that Query modules will be able to
+				// resolve the API on their own
+				const resolve = (result, statusCode = 200) => resolveAPI(conn, result, statusCode)
 				const { query, params, auth } = incoming
 				const Context = { query, params, auth, resolve }
-
-				performQuery(query, Context)
+				performQuery(Context)
 			}
 		}
 	})
@@ -26,10 +29,15 @@ const resolveAPI = (conn, result, statusCode = 200) => {
 	conn.send(JSON.stringify(result))
 }
 
-const performQuery = (query, Context) => {
-	switch (query) {
-		case 'list_concert_halls': queryListConcertHalls(Context)
-		// case 'calc_': 
+// USAGE of `Context`
+// Context.resolve({ success: false, errMsg: 'failed yall' })
+// Context.resolve({ success: true, results: { a: 'b', c: 'd' } })
+
+const performQuery = (Context) => {
+	switch (Context.query) {
+		case 'list_concert_halls': list_concert_halls_query(Context); break;
+		case 'calculate_by_reqs': calculate_by_reqs_query(Context); break;
+		default: Context.resolve({ success: false, errMsg: 'Unknown Qy' }, 400)
 	}
 }
 
