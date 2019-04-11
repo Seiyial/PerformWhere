@@ -1,3 +1,5 @@
+// this file is runnable by Server (NodeJS) only; while sessionSecret.js is used by both Server and Client.
+
 const fs = require('fs')
 
 const execute = () => {
