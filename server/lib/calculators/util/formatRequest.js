@@ -57,7 +57,11 @@ const formatNumbers = (obj) => {
 		'duration', 'soundcheckDuration',
 		'numDarkDays', 'numTechCrew', 'numUshers'
 	].forEach((c) => {
-		obj[c] = parseInt(obj[c])
+		if (obj[c] === '' || !obj[c]) {
+			obj[c] = 0
+		} else {
+			obj[c] = parseInt(obj[c])
+		}
 	})
 	return obj
 }

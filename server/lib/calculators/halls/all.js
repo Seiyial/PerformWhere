@@ -1,11 +1,12 @@
 // Concert Hall IDs
 const CHIDs = [
-	'EspCH', 'EspRS', 'NAFALFT', 'SCC', 'SCCC', 'SOTA', 'VCH'
+	// 'EspCH', 'EspRS', 'NAFALFT', 'SCC', 'SCCC', 'SOTA', 'VCH'
+	'EspCH', 'EspRS'
 ]
 
 // Concert Hall Data
 const CHData = {}
-chIDList.forEach((chID) => {
+CHIDs.forEach((chID) => {
 	CHData[chID] = require(`./${chID}`)
 })
 

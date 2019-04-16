@@ -4,7 +4,7 @@ module.exports = {
 		location: 'CBD',
 		seating: '1630 + 197 (Gallery)',
 	},
-	resolveFees: (Request) => {
+	feeCalculator: (Request) => {
 		// 1. Concert Hall Rate
 		const ratesByType = {
 			'p-arts': {
@@ -32,7 +32,7 @@ module.exports = {
 				darkDayRate: 1700.00
 			},
 			'fundraising': {
-				perfBaseFee: [6000.00, 'flat fee']
+				perfBaseFee: [6000.00, 'flat fee'],
 				perfBaseHrs: 4.5,
 				perfAddHr: 900.00,
 				peakSurcharge: 1000.00,
@@ -53,20 +53,27 @@ module.exports = {
 				rehBaseHrs: 4,
 				rehAddHr: 2350.00,
 				rehPeakSurcharge: 1000.00,
-				darkDayRate: null
+				darkDayRate: 0
 			}
 		}
 
-		const r = ratesByType[Request.evType]
-		console.log('info: espCH rates', r)
+		// fixed rates
+		const fr = {
+			techCrewPerPaxPerHr: [23.00, 'Extra 10/pax/hr if event is 12am to 8am'],
+			techCrewMinHr: 4,
+			usherFreeNum: 16,
+			usherAddManHr: 13,
+		}
 
+		// varying rates
+		const r = ratesByType[Request.evType]
 		const fees = []
 		
 		// Base Rate
 		fees.push(Request.calcBaseRate({
 			label: 'Concert',
 			description: r.perfBaseFee[1],
-			rate: r.perfBaseFee[0]
+			rate: r.perfBaseFee[0],
 			baseHrs: r.perfBaseHrs,
 		}))
 
@@ -74,7 +81,7 @@ module.exports = {
 		if (Request.dur > r.perfBaseHrs) {
 			fees.push(Request.calcAddHrs({
 				label: 'Concert',
-				description: 'Additional per hour or part thereof'
+				description: 'Additional per hour or part thereof',
 				qty: Math.ceil(r.perfBaseHrs - Request.dur),
 				rate: r.perfAddHr
 			}))
@@ -83,7 +90,7 @@ module.exports = {
 		// Peak Surcharge
 		if (Request.isPeak(r.peakDays)) {
 			fees.push(Request.calcPeakSurcharge({
-				label: 'Concert'
+				label: 'Concert',
 				peakDays: r.peakDays,
 				rate: r.peakSurcharge
 			}))
@@ -92,8 +99,8 @@ module.exports = {
 		// Rehearsal Base Rate
 		fees.push(Request.calcBaseRate({
 			label: 'Rehearsal',
-			description: r.rehBaseFee[1],
-			rate: r.rehBaseFee[0]
+			// description: r.rehBaseFee,
+			rate: r.rehBaseFee,
 			baseHrs: r.rehBaseHrs,
 		}))
 
@@ -101,7 +108,7 @@ module.exports = {
 		if (Request.rehDur > r.rehBaseHrs) {
 			fees.push(Request.calcAddHrs({
 				label: 'Rehearsal',
-				description: 'Additional per hour or part thereof'
+				description: 'Additional per hour or part thereof',
 				qty: Math.ceil(r.rehBaseHrs - Request.rehDur),
 				rate: r.rehAddHr
 			}))
@@ -110,7 +117,7 @@ module.exports = {
 		// Peak Surcharge
 		if (Request.isPeak(r.peakDays)) {
 			fees.push(Request.calcPeakSurcharge({
-				label: 'Rehearsal'
+				label: 'Rehearsal',
 				peakDays: r.peakDays,
 				rate: r.rehPeakSurcharge
 			}))
@@ -126,5 +133,32 @@ module.exports = {
 		}
 
 		// Tech Crew
+		fees.push(Request.calcManHr({
+			label: 'Technical Crew',
+			description: fr.techCrewPerPaxPerHr[1],
+			rate: fr.techCrewPerPaxPerHr[0],
+			pax: Request.numTC,
+			hrs: (Request.dur + Request.rehDur)
+		}))
+
+		// Ushers
+		fees.push(Request.calcManHr({
+			label: 'Ushers',
+			description: `First ${fr.usherFreeNum} free`,
+			pax: fr.usherFreeNum,
+			hrs: (Request.dur + Request.rehDur),
+			rate: 0
+		}))
+
+		if (Request.numUsh > fr.usherFreeNum) {
+			fees.push(Request.calcManHr({
+				label: 'Additional Ushers',
+				pax: (Request.numUsh - fr.usherFreeNum),
+				hrs: (Request.dur + Request.rehDur),
+				rate: fr.usherAddManHr
+			}))
+		}
+
+		return fees
 	}
 }

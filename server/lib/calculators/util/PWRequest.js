@@ -45,7 +45,9 @@ class PWRequest {
 		return this
 	}
 
-	resolveFees(chID, feesCompilerFunction) {
+	recordFees(chID, feesCompilerFunction) {
+		console.log("FCF", feesCompilerFunction);
+		
 		const fees = feesCompilerFunction(this)
 		this.results[chID].fees = fees
 	}
@@ -105,13 +107,21 @@ class PWRequest {
 	// > label: feel free to input 'Concert' or 'Soundcheck' or nothing at all, and it will prefill for you.
 	// rate and qty MUST NOT be string
 	calcPeakSurcharge({ label, description, rate, qty }) {
-		const calcItem = { description }
+		const calcItem = { description, rate }
 		calcItem.qty = qty || 1
 		calcItem.label = label || 'Peak Surcharge'
 		if (label === 'Concert' || label === 'Soundcheck') {
 			calcItem.label = `${label} Peak Surcharge`
 		}
 		calcItem.result = calcItem.qty * rate
+		return calcItem
+	}
+
+	calcManHr({ label, description, hrs, pax, rate }) {
+		const calcItem = { label, description, rate }
+		calcItem.qtyB = pax + ' pax'
+		calcItem.qtyA = hrs + ' h'
+		calcItem.result = rate * pax * hrs
 		return calcItem
 	}
 }

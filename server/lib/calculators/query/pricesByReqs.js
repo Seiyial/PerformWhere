@@ -9,7 +9,14 @@ module.exports = (Context) => {
 	})
 
 	CHIDs.forEach((chID) => {
-		Request.recordReceipt(chID, CHData[chID].resolveFees)
+		console.log(chID, CHData[chID]);
+		
+		Request.recordFees(chID, CHData[chID].feeCalculator)
 	})
 	console.log('REQUEST', Request)
+
+	Context.resolve({
+		success: true,
+		data: Request.results
+	})
 }
