@@ -7,7 +7,7 @@
 
 .pw-interface-wrapper {
 	width: 100%;
-	padding: 3.3vh 5vw;
+	padding: 0 5vw 3.3vh 5vw;
 	display: flex;
 	justify-content: center;
 }
@@ -138,3 +138,23 @@ input.input.pw-input {
 	.br-mobile-only { display: inherit }
 }
 
+div.pw-interface-wrapper.pw-results-area {
+	display: none;
+	
+	&.show {
+		display: flex;
+	}
+}
+
+.pw-result-list {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: flex-start;
+	width: 100%;
+
+	.pw-result-item {
+		max-height: 700px;
+		padding: 1em;
+	}
+}

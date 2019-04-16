@@ -2,7 +2,7 @@ module.exports = {
 	info: {
 		name: 'Esplanade Concert Hall',
 		location: 'CBD',
-		seating: '1630 + 197 (Gallery)',
+		seating: 'Seats 1630 + 197 (Gallery)',
 	},
 	feeCalculator: (Request) => {
 		// 1. Concert Hall Rate

@@ -2,6 +2,7 @@ import './app.scss'
 import axios from 'axios'
 import { MDCRipple } from '@material/ripple'
 import { sk } from '../env/sessionSecret'
+import { renderResults } from './scripts/renderers'
 
 // Ripple
 // const ripples = [
@@ -24,9 +25,18 @@ const submitForm = () => {
 	console.log('Params', params)
 	
 	axios.post('/api', { params, query: 'get_prices_by_reqs', auth: sk })
-	.then((reply) => console.log('(*) get_prices_by_reqs', reply.data))
+	.then(handleResults)
 	.catch(console.warn)
 	.finally(() => setLoading(false))
+}
+
+const handleResults = ({ data: { success, data, errMsg }}) => {
+	console.log('(*) get_prices_by_reqs', { success, data, errMsg })
+
+	if (success) {
+		renderResults(data)
+		document.getElementById('pw-results-area').classList.add('show')
+	}
 }
 
 const setLoading = (bool = true) => {

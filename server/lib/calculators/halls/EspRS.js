@@ -2,7 +2,7 @@ module.exports = {
 	info: {
 		name: 'Esplanade Recital Studio',
 		location: 'CBD',
-		seating: '245 (maximum), Retractable bleacher seating',
+		seating: 'Seats 245 (maximum), Retractable bleacher seating',
 	},
 	feeCalculator: (Request) => {
 		const fees = []
