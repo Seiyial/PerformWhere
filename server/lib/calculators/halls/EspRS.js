@@ -3,6 +3,7 @@ module.exports = {
 		name: 'Esplanade Recital Studio',
 		location: 'CBD',
 		seating: 'Seats 245',
+		docChecked: '2 Apr 2019'
 	},
 	feeCalculator: (Request) => {
 		const fees = []

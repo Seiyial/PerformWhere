@@ -16,6 +16,7 @@
     "start": "concurrently \"yarn start-web\" \"yarn start-server\"",
     "start-web": "cd web && yarn dev",
     "start-server": "cd server && yarn dev",
-    "i": "echo '(1) yarn install WEB' && cd web && yarn && cd ../server && echo '(2) yarn install SERVER' && yarn"
+    "i": "echo '(1) yarn install WEB' && cd web && yarn && cd ../server && echo '(2) yarn install SERVER' && yarn",
+    "deploy-web": "cd web && yarn && yarn build"
   }
 }
