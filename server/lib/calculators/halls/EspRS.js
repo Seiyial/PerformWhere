@@ -2,7 +2,7 @@ module.exports = {
 	info: {
 		name: 'Esplanade Recital Studio',
 		location: 'CBD',
-		seating: 'Seats 245 (maximum), Retractable bleacher seating',
+		seating: 'Seats 245',
 	},
 	feeCalculator: (Request) => {
 		const fees = []
@@ -83,7 +83,7 @@ module.exports = {
 			fees.push(Request.calcAddHrs({
 				label: 'Concert',
 				description: 'Additional per hour or part thereof',
-				qty: Math.ceil(r.perfBaseHrs - Request.dur),
+				qty: Math.ceil(Request.dur - r.perfBaseHrs),
 				rate: r.perfAddHr
 			}))
 		}
@@ -108,9 +108,9 @@ module.exports = {
 		// Add Hrs
 		if (Request.rehDur > r.rehBaseHrs) {
 			fees.push(Request.calcAddHrs({
-				label: 'Rehearsal',
+				label: 'Rehearsal (Additional)',
 				description: 'Additional per hour or part thereof',
-				qty: Math.ceil(r.rehBaseHrs - Request.rehDur),
+				qty: Math.ceil(Request.rehDur - r.rehBaseHrs),
 				rate: r.rehAddHr
 			}))
 		}

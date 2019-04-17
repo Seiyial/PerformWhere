@@ -68,10 +68,14 @@ class PWRequest {
 			return this.results[ch]
 		}
 
+		let actualQty
 		if (min && qty < min) {
-			qty = min
+			actualQty = min
 			calcItem.usedMin = true
+		} else {
+			actualQty = qty
 		}
+		calcItem.qty = actualQty
 		calcItem.result = qty * rate
 
 		return calcItem
@@ -92,7 +96,7 @@ class PWRequest {
 	// Calculator for additional hrs
 	// IF you'd like to round the qty up or down, do it before sending it into this function
 	// rate and qty MUST NOT be string
-	calcAddHr({ label, description, rate, qty }) {
+	calcAddHrs({ label, description, rate, qty }) {
 		const calcItem = { description, rate }
 		calcItem.label = label || 'Additional Hrs'
 		if (label === 'Concert' || label === 'Soundcheck') {
@@ -120,7 +124,7 @@ class PWRequest {
 	calcManHr({ label, description, hrs, pax, rate }) {
 		const calcItem = { label, description, rate }
 		calcItem.qtyB = pax + ' pax'
-		calcItem.qtyA = hrs + ' h'
+		calcItem.qty = hrs + ' h'
 		calcItem.result = rate * pax * hrs
 		return calcItem
 	}

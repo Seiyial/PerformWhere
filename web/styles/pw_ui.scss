@@ -145,16 +145,3 @@ div.pw-interface-wrapper.pw-results-area {
 		display: flex;
 	}
 }
-
-.pw-result-list {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-	align-items: flex-start;
-	width: 100%;
-
-	.pw-result-item {
-		max-height: 700px;
-		padding: 1em;
-	}
-}

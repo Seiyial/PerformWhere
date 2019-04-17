@@ -1,0 +1,69 @@
+.pw-result-list {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: flex-start;
+	width: 100%;
+
+	.pw-result-item {
+		flex: 1 1 300px;
+		max-height: 700px;
+		padding: 1em;
+	}
+}
+
+.pw-result-fee-list {
+	display: block;
+
+	.pw-fee-item {
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+
+		padding-bottom: 5px;
+		margin-bottom: 5px;		
+		&:not(:last-child) {
+			border-bottom: 1px solid rgba(0,0,0,0.1);
+		}
+
+		.item-left {
+			flex: 8 0 10px;
+			display: flex;
+			flex-direction: column;
+
+		}
+
+		.item-mid {
+			flex: 1 0 30px;
+		}
+
+		.item-right {
+			flex: 1 0 50px;
+		}
+
+		.item-label {
+			font-size: 0.9rem;
+		}
+
+		.item-rate {
+			font-size: 0.8rem;
+		}
+
+		.item-description {
+			color: grey;
+			font-size: 0.6rem;
+		}
+
+		.item-qty {
+			font-size: 0.8rem;
+		}
+
+		.item-result {
+			text-align: right;
+			font-size: 0.9rem;
+			color: $color2;
+		}
+	}
+}

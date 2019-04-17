@@ -80,9 +80,9 @@ module.exports = {
 		// Additional Hours
 		if (Request.dur > r.perfBaseHrs) {
 			fees.push(Request.calcAddHrs({
-				label: 'Concert',
+				label: 'Concert (Additional)',
 				description: 'Additional per hour or part thereof',
-				qty: Math.ceil(r.perfBaseHrs - Request.dur),
+				qty: Math.ceil(Request.dur - r.perfBaseHrs),
 				rate: r.perfAddHr
 			}))
 		}
@@ -109,7 +109,7 @@ module.exports = {
 			fees.push(Request.calcAddHrs({
 				label: 'Rehearsal',
 				description: 'Additional per hour or part thereof',
-				qty: Math.ceil(r.rehBaseHrs - Request.rehDur),
+				qty: Math.ceil(Request.rehDur - r.rehBaseHrs),
 				rate: r.rehAddHr
 			}))
 		}
