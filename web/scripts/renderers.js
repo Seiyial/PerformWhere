@@ -19,7 +19,7 @@ const resultItem = Handlebars.compile(`
 		<p class="heading has-text-centered">
 			{{ CH.info.seating }}<br>
 			<a class="ch-link" href="/CH-{{ id }}.pdf" target="_blank">
-				Verify
+				View official rates
 			</a>
 		</p>
 
