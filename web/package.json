@@ -14,7 +14,8 @@
   },
   "scripts": {
     "start": "cd .. && yarn run start",
-    "dev": "yarn run parcel watch index.html --out-dir ../dist"
+    "dev": "yarn run parcel watch index.html --out-dir ../dist",
+    "build": "yarn run parcel build index.html --out-dir ../dist"
   },
   "nodemonConfig": {
     "ignore": [

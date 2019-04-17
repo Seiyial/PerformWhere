@@ -13,13 +13,14 @@ const resultItem = Handlebars.compile(`
 		</h1>
 
 		<h1 class="mb-1 subtitle is-5 has-text-centered">
-			<a class="ch-link" href="/CH-{{ id }}.pdf" target="_blank">
-				{{ CH.info.name }}
-			</a>
+			{{ CH.info.name }}
 		</h1>
 
 		<p class="heading has-text-centered">
-			{{ CH.info.seating }}
+			{{ CH.info.seating }}<br>
+			<a class="ch-link" href="/CH-{{ id }}.pdf" target="_blank">
+				Verify
+			</a>
 		</p>
 
 		<div class="pw-result-fee-list">
