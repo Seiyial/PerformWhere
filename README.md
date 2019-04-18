@@ -1,8 +1,10 @@
-<style>h4 { color: #0097a7; }</style>
-
 # PerformWhere
 
-### Development
+Calculate the prices for using various Singapore concert halls for your symphony orchestra, or wind ensemble/band concert projects. Check it out at [performwhere.syx.li](https://performwhere.syx.li).
+
+
+
+## Development
 
 ```bash
 git clone https://github.com/Seiyial/PerformWhere.git PW
@@ -11,7 +13,7 @@ yarn i # or npm run i
 yarn start # or npm run start
 ```
 
-<h3 style="color: #0097a7">(Dev) the PWRequest API</h3>
+## The PWRequest API
 
 Calculators should use the `Request` object and its instance methods to tabulate concert hall fees. This is a detailed API which should contain everything you need. Feel free to add more features to the `PWRequest` class in your pull requests if you feel it is a good idea.
 
