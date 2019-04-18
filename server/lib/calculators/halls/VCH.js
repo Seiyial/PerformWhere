@@ -31,41 +31,20 @@ module.exports = {
 				rehAddHr: 200.00,
 				rehPeakSurcharge: 400.00,
 				darkDayRate: 900.00
-			},
-			// 'fundraising': {
-			// 	perfBaseFee: [856.00, 'flat fee'],
-			// 	perfBaseHrs: 4.5,
-			// 	perfAddHr: 214.00,
-			// 	peakSurcharge: 214.00,
-			// 	peakDays: ['Friday', 'Saturday', 'PH Eve'],
-			// 	rehBaseFee: 535.00,
-			// 	rehBaseHrs: 4,
-			// 	rehAddHr: 160.50,
-			// 	rehPeakSurcharge: 160.50,
-			// 	darkDayRate: 1700.00
-			// },
-			// 'private': {
-			// 	perfBaseFee: [1926.00, 'Incl. GST, or 18% of Box Office sales for ticketed events (subject to GST), whichever is higher'],
-			// 	perfBaseHrs: 4.5,
-			// 	perfAddHr: 561.75,
-			// 	peakSurcharge: 1926.00,
-			// 	peakDays: ['Friday', 'Saturday', 'PH Eve'],
-			// 	rehBaseFee: 1926.00,
-			// 	rehBaseHrs: 4,
-			// 	rehAddHr: 561.75,
-			// 	rehPeakSurcharge: 1926,
-			// 	darkDayRate: 0
-			// }
+			}
 		}
 
 		// fixed rates
 		const fr = {
-			techCrewPerPaxPerHr: [24.61, 'Extra $10.70/pax/hr if event is 12am to 8am'],
+			techCrewPerPaxPerHr: [24.61, 'Please manually add $10.70/pax/hr if event is 12am to 8am'],
 			techCrewMinHr: 4,
 			usherFreeNum: 4,
 			usherMinHr: 3,
 			usherAddManHr: 13.91
 		}
+
+		// Base Rate
+		fees.push(Request.calcBaseRate)
 
 		return fees
 	}

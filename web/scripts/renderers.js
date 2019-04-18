@@ -1,9 +1,27 @@
 import Handlebars from 'handlebars'
 
-const errorItem = Handlebars.compile(`
-	<div class="pw-errors">
-		Error box
-	</div>
+const resultHeaders = Handlebars.compile(`
+	<h3 class="subtitle is-6 has-text-info has-text-centered" style="width: 100%;">
+		{{{ peaks }}}
+	</h3>
+
+	<ul class="pw-errors">
+		<li class="is-size-7">
+			Results here should only serve as estimates. Do check your own contracts before agreeing. ☺️
+		</li>
+
+		{{#if errors}}
+			{{#each errors}}
+				<li class="has-text-danger is-size-7">
+					{{ this }}
+				</li>
+			{{/each}}
+		{{/if}}
+		
+		<li class="is-size-7">
+			Please <a href="/contact.html">let me know</a> if anything can be improved or worked on. Thanks!
+		</li>
+	</ul>
 `)
 
 const resultItem = Handlebars.compile(`
@@ -60,9 +78,13 @@ const resultItem = Handlebars.compile(`
 	</div>
 `)
 
-const renderResults = (data) => {
+const renderResults = ({ data, peakTypes, errors }) => {
 	let result = ''
 
+	// Insert Headers
+	result += resultHeaders({ errors, peaks: renderPeaks(peakTypes) })
+
+	// Insert Results
 	Object.keys(data).map((id) => {
 		const CH = data[id]
 		console.log(id)
@@ -70,9 +92,18 @@ const renderResults = (data) => {
 		const total = calculateTotals(CH.fees)
 		result += resultItem({ id, CH, total })
 	})
-	console.log('RESULTs', result)
 
 	document.getElementById('pw-result-list').innerHTML = result
+}
+
+const renderPeaks = (peakTypes) => {
+	if (peakTypes.includes('Invalid DateTime')) {
+		document.getElementById('date-error').innerText = 'Invalid Date'
+		document.getElementById('input-date').classList.add('is-danger')
+		return "(!) Please check your date and try again."
+	} else {
+		return `Your date is a: <b>${peakTypes.join('; ')}</b>`
+	}
 }
 
 const calculateTotals = (fees) => fees.reduce((acc, fee) => {

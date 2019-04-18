@@ -12,6 +12,9 @@ import { renderResults } from './scripts/renderers'
 
 const submitForm = () => {
 	setLoading()
+
+	document.getElementById('input-date').classList.remove('is-danger')
+
 	const params = {}
 	const fields = [
 		'eventType', 'duration', 'soundcheckDuration',
@@ -27,14 +30,14 @@ const submitForm = () => {
 	axios.post('/api', { params, query: 'get_prices_by_reqs', auth: sk })
 	.then(handleResults)
 	.catch(console.warn)
-	.finally(() => setLoading(false))
+	.finally(() => setTimeout(() => setLoading(false), 500))
 }
 
-const handleResults = ({ data: { success, data, errMsg }}) => {
-	console.log('(*) get_prices_by_reqs', { success, data, errMsg })
+const handleResults = ({ data: { success, data, errMsg, errors, peakTypes }}) => {
+	console.log('(*) get_prices_by_reqs', { success, data, errMsg, errors, peakTypes })
 
 	if (success) {
-		renderResults(data)
+		renderResults({ data, errors, peakTypes })
 		document.getElementById('pw-results-area').classList.add('show')
 	}
 }

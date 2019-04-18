@@ -17,7 +17,7 @@
 		<div class="pw-interface-wrapper mt-4">
 			<div class="pw-interface">
 
-				<div class="pw-level mb-2">
+				<div class="pw-level mb-4">
 					<span class="label">1.</span>
 					<span class="qntext">This is a/an: </span>
 					<div class="select pw-select is-medium within-grid">
@@ -31,7 +31,7 @@
 				</div>
 					
 					
-				<div class="pw-level mb-2">
+				<div class="pw-level mb-4">
 					<span class="label">2.</span>
 					<span class="qntext">Concert Duration:</span>
 					<span class="qntext"><b>up to</b></span>
@@ -52,7 +52,7 @@
 					</div>
 				</div>
 
-				<div class="pw-level mb-2">
+				<div class="pw-level mb-4">
 					<span class="label">3.</span>
 					<span class="qntext">Rehearsal / Soundcheck Duration:</span>
 					<span class="qntext"><b>up to</b></span>
@@ -74,10 +74,11 @@
 					</div>
 				</div>
 
-				<div class="pw-level mb-2">
+				<div class="pw-level mb-4">
 					<span class="label">4.</span>
 					<span class="qntext">Desired date of concert:</span>
 					<input type="date" class="input pw-input is-medium" id="input-date">
+					<div id="date-error" class="ml-2 help is-danger"></div>
 				</div>
 				
 				<hr>
@@ -86,7 +87,7 @@
 					<label class="column is-3-tablet is-6-mobile">
 						<span class="label has-text-weight-normal">No. of Dark days:</span>
 						<input type="text" class="input pw-input has-text-centered" placeholder="0" id="input-numDarkDays">
-						<p class="help">N. days hall is reserved for setup but not used</p>
+						<p class="help">Number of days hall is reserved for your event's setup and thus unusable</p>
 					</label>
 					<label class="column is-3-tablet is-6-mobile">
 						<span class="label has-text-weight-normal">No. of Tech. crew:</span>
@@ -116,9 +117,7 @@
 		<div class="pw-interface-wrapper pw-results-area" id="pw-results-area">
 			<div class="pw-interface">
 				<h1 class="subtitle has-text-primary is-2 has-text-centered">RESULTS</h1>
-				<p class="is-size-7 has-text-centered">
-					Although I try to keep the data updated, results here should only serve as estimates. If you are going ahead with your plans, please make sure to <b class="has-text-grey-dark">obtain and check properly the actual fees from the concert hall(s) themselves</b>. If there were any inaccuracies from us, kindly report them too ☺️
-				</p>
+				
 				<div class="pw-result-list" id="pw-result-list"></div>
 			</div>
 		</div>

@@ -67,3 +67,15 @@
 		}
 	}
 }
+
+ul.pw-errors {
+	padding-left: 2em;
+	
+	li::before {
+		content: "\2022";  /* Add content: \2022 is the CSS Code/unicode for a bullet */
+		display: inline-block; 
+		width: 1em;
+		margin-left: -1em;
+	}
+}
+

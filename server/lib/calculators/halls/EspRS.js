@@ -5,8 +5,7 @@ module.exports = {
 		seating: 'Seats 245',
 		docChecked: '2 Apr 2019'
 	},
-	feeCalculator: (Request) => {
-		const fees = []
+	calculateFees: (Request) => {
 
 		// 1. Concert Hall Rate
 		const ratesByType = {
@@ -62,7 +61,7 @@ module.exports = {
 
 		// fixed rates
 		const fr = {
-			techCrewPerPaxPerHr: [24.61, 'Extra $10.70/pax/hr if event is 12am to 8am'],
+			techCrewPerPaxPerHr: [24.61, 'Please manually add $10.70/pax/hr if event is 12am to 8am'],
 			techCrewMinHr: 4,
 			usherFreeNum: 4,
 			usherMinHr: 3,
@@ -72,95 +71,95 @@ module.exports = {
 		const r = ratesByType[Request.evType]
 
 		// Concert base rate
-		fees.push(Request.calcBaseRate({
+		Request.calcBaseRate({
 			label: 'Concert',
 			description: r.perfBaseFee[1],
-			rate: r.perfBaseFee[0],
+			baseRate: r.perfBaseFee[0],
 			baseHrs: r.perfBaseHrs,
-		}))
+		})
 
 		// Additional Hours
 		if (Request.dur > r.perfBaseHrs) {
-			fees.push(Request.calcAddHrs({
+			Request.calcAddHrs({
 				label: 'Concert',
 				description: 'Additional per hour or part thereof',
 				qty: Math.ceil(Request.dur - r.perfBaseHrs),
 				rate: r.perfAddHr
-			}))
+			})
 		}
 
 		// Peak Surcharge
 		if (Request.isPeak(r.peakDays)) {
-			fees.push(Request.calcPeakSurcharge({
+			Request.calcPeakSurcharge({
 				label: 'Concert',
 				peakDays: r.peakDays,
 				rate: r.peakSurcharge
-			}))
+			})
 		}
 
 		// Rehearsal Base Rate
-		fees.push(Request.calcBaseRate({
-			label: 'Rehearsal',
+		Request.calcBaseRate({
+			label: 'Soundcheck',
 			// description: r.rehBaseFee,
-			rate: r.rehBaseFee,
+			baseRate: r.rehBaseFee,
 			baseHrs: r.rehBaseHrs,
-		}))
+		})
 
 		// Add Hrs
 		if (Request.rehDur > r.rehBaseHrs) {
-			fees.push(Request.calcAddHrs({
-				label: 'Rehearsal (Additional)',
+			Request.calcAddHrs({
+				label: 'Soundcheck (Additional time)',
 				description: 'Additional per hour or part thereof',
 				qty: Math.ceil(Request.rehDur - r.rehBaseHrs),
 				rate: r.rehAddHr
-			}))
+			})
 		}
 
 		// Peak Surcharge
 		if (Request.isPeak(r.peakDays)) {
 			fees.push(Request.calcPeakSurcharge({
 				label: 'Rehearsal',
-				peakDays: r.peakDays,
+				description: r.peakDays.join(', '),
 				rate: r.rehPeakSurcharge
 			}))
 		}
 
 		// Dark Days
 		if (Request.evType !== 'private' && Request.numDD > 0) {
-			fees.push(Request.calc({
-				label: 'Dark Day Rate',
+			Request.calc({
+				label: 'Dark Day',
 				qty: Request.numDD,
 				rate: r.darkDayRate
-			}))
+			})
 		}
 
 		// Tech Crew
-		fees.push(Request.calcManHr({
+		Request.calcManHr({
 			label: 'Technical Crew',
 			description: fr.techCrewPerPaxPerHr[1],
 			rate: fr.techCrewPerPaxPerHr[0],
 			pax: Request.numTC,
 			hrs: (Request.dur + Request.rehDur)
-		}))
+		})
 
 		// Ushers
-		fees.push(Request.calcManHr({
+		Request.calcManHr({
 			label: 'Ushers',
 			description: `First ${fr.usherFreeNum} free`,
 			pax: fr.usherFreeNum,
 			hrs: (Request.dur + Request.rehDur),
 			rate: 0
-		}))
+		})
 
 		if (Request.numUsh > fr.usherFreeNum) {
-			fees.push(Request.calcManHr({
+			Request.calcManHr({
 				label: 'Additional Ushers',
 				pax: (Request.numUsh - fr.usherFreeNum),
 				hrs: (Request.dur + Request.rehDur),
 				rate: fr.usherAddManHr
-			}))
+			})
 		}
 
-		return fees
+		// yay
 	}
 }

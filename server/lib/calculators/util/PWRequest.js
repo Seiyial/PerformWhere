@@ -19,6 +19,8 @@ class PWRequest {
 		this.lxDate = lxDate
 		this.peakTypes = peakTypes
 		this.errors = errors
+
+		this.currentCH = null
 		this.results = {}
 		return this
 	}
@@ -37,19 +39,34 @@ class PWRequest {
 		return match
 	}
 
+	// Add concert hall object scaffold + concert hall info to results list
+	// Used internally by query function
 	addCH(chID, info) {
 		this.results[chID] = {
 			info,
 			fees: []
 		}
-		return this
 	}
 
-	recordFees(chID, feesCompilerFunction) {
-		console.log("FCF", feesCompilerFunction);
-		
-		const fees = feesCompilerFunction(this)
-		this.results[chID].fees = fees
+	// Set the 'nowCalculating' property.
+	// This is run by the query function before starting each calculation.
+	// This allows all calculations within the calculators to be automatically parked into their respective concert hall ID.
+	setNowCalculating(chID) {
+		this.currentCH = chID
+	}
+
+	// recordFees(chID, feesCompilerFunction) {
+	// 	const fees = feesCompilerFunction(this)
+	// 	this.results[chID].fees = fees
+	// }
+
+	recordError(error) {
+		this.errors.push(error)
+	}
+
+	insertCalcItem(calcItem) {
+		this.results[this.currentCH].fees.push(calcItem)
+		console.log(`(PW) inserted ${calcItem} to ${this.currentCH}`)
 	}
 
 	calc({ label, description, rate, min, qty }) {
@@ -78,19 +95,19 @@ class PWRequest {
 		calcItem.qty = actualQty
 		calcItem.result = qty * rate
 
-		return calcItem
+		return this.insertCalcItem(calcItem)
 	}
 
-	calcBaseRate({ label, description, rate, baseHrs }) {
-		const calcItem = { description, rate }
+	calcBaseRate({ label, description, baseRate, baseHrs }) {
+		const calcItem = { description, rate: baseRate }
 		calcItem.label = label || 'Base Rate'
 		if (label === 'Concert' || label === 'Soundcheck') {
 			calcItem.label = `${label} Base Rate`
 		}
 		calcItem.qty = `${baseHrs}h`
 		calcItem.usedMin = true
-		calcItem.result = rate
-		return calcItem
+		calcItem.result = baseRate
+		return this.insertCalcItem(calcItem)
 	}
 
 	// Calculator for additional hrs
@@ -104,21 +121,28 @@ class PWRequest {
 		}
 		calcItem.usedMin = false // if true, there'd be no addHr
 		calcItem.result = rate * qty
-		return calcItem
+		return this.insertCalcItem(calcItem)
 	}
 
 	// creates a peak surcharge calcItem.
 	// > label: feel free to input 'Concert' or 'Soundcheck' or nothing at all, and it will prefill for you.
 	// rate and qty MUST NOT be string
-	calcPeakSurcharge({ label, description, rate, qty }) {
+	calcPeakSurcharge({ label, description, rate, qty, onlyIfPeakTypes = null }) {
+
+		// if user set a value to `onlyIfPeakTypes`,
+		// and if this request's date does not fall on any of the peaks specified for this request (specified in `onlyIfPeakTypes`'s value),
+		// skip calculating peak surcharge.
+		if (onlyIfPeakTypes && !this.isPeak(onlyIfPeakTypes)) {
+			return "Peak surcharge not applicable"
+		}
 		const calcItem = { description, rate }
 		calcItem.qty = qty || 1
 		calcItem.label = label || 'Peak Surcharge'
-		if (label === 'Concert' || label === 'Soundcheck') {
+		if (label === 'Concert' || label === 'Soundcheck' || label === 'Rehearsal') {
 			calcItem.label = `${label} Peak Surcharge`
 		}
 		calcItem.result = calcItem.qty * rate
-		return calcItem
+		return this.insertCalcItem(calcItem)
 	}
 
 	calcManHr({ label, description, hrs, pax, rate }) {
@@ -126,7 +150,7 @@ class PWRequest {
 		calcItem.qtyB = pax + ' pax'
 		calcItem.qty = hrs + ' h'
 		calcItem.result = rate * pax * hrs
-		return calcItem
+		return this.insertCalcItem(calcItem)
 	}
 }
 
