@@ -43,9 +43,43 @@ module.exports = {
 			usherAddManHr: 13.91
 		}
 
-		// Base Rate
-		fees.push(Request.calcBaseRate)
+		const r = ratesByType[Request.evType]
 
-		return fees
+		// Base Rate
+		Request.calcBaseRate({
+			label: 'Concert first 4 hours',
+			description: 'or 15% Box Office sales, whichever is higher',
+			baseRate: r.perfBaseFee[0],
+			baseHrs: r.perfBaseHrs
+		})
+
+		if (Request.dur > r.perfBaseHrs) {
+			Request.calcAddHrs({
+				label: 'Concert',
+				description: 'Hours not covered by base rate',
+				rate: r.perfAddHr,
+				qty: Math.ceil(Request.dur - r.perfBaseHrs)
+			})
+		}
+
+		Request.calcPeakSurcharge({
+			label: 'Concert',
+			rate: r.peakSurcharge,
+			onlyIfPeakTypes: r.peakDays,
+		})
+
+		// Rehearsal
+		Request.calcBaseRate({
+			label: 'Soundcheck',
+			baseRate: r.rehBaseFee,
+			baseHrs: r.rehBaseHrs
+		})
+
+		if (Request.rehDur > r.rehBaseHrs) {
+			Request.calcAddHrs({
+				label: 'Soundcheck',
+				qty: Math.ceil(Request.rehDur, r.rehBaseHrs),
+			})
+		}
 	}
 }
