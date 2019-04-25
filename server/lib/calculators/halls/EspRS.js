@@ -3,7 +3,8 @@ module.exports = {
 		name: 'Esplanade Recital Studio',
 		location: 'CBD',
 		seating: 'Seats 245',
-		docChecked: '2 Apr 2019'
+		docChecked: '2 Apr 2019',
+		extraInfo: 'The Recital Studio has no Peak Surcharge for Arts Hires. Yay!'
 	},
 	calculateFees: (Request) => {
 
@@ -92,7 +93,7 @@ module.exports = {
 		if (Request.isPeak(r.peakDays)) {
 			Request.calcPeakSurcharge({
 				label: 'Concert',
-				peakDays: r.peakDays,
+				onlyIfPeakDays: r.peakDays,
 				rate: r.peakSurcharge
 			})
 		}
