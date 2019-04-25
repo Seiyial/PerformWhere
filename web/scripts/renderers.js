@@ -1,5 +1,12 @@
 import Handlebars from 'handlebars'
 
+Handlebars.registerHelper('if_eq', function (a, b, opts) {
+	if (a == b) // Or === depending on your needs
+		return opts.fn(this);
+	else
+		return opts.inverse(this);
+});
+
 const resultHeaders = Handlebars.compile(`
 	<h3 class="subtitle is-6 has-text-info has-text-centered" style="width: 100%;">
 		{{{ peaks }}}
@@ -7,7 +14,7 @@ const resultHeaders = Handlebars.compile(`
 
 	<ul class="pw-errors">
 		<li class="is-size-7">
-			Results here should only serve as estimates. Do check your own contracts before agreeing. ☺️
+			<b class="has-text-grey-dark">We have no official contact with the concert halls</b> and PerformWhere is just a tool made based on publicly available information. They may update their prices anytime; results here should only serve as estimates. Do take note ☺️
 		</li>
 
 		{{#if errors}}
@@ -19,7 +26,7 @@ const resultHeaders = Handlebars.compile(`
 		{{/if}}
 		
 		<li class="is-size-7">
-			Please <a href="/contact.html">let me know</a> if anything can be improved or worked on. Thanks!
+			Please <a href="mailto:sayhao@seiyianworks.com">let me know</a> if anything can be improved or worked on. Thanks!
 		</li>
 	</ul>
 `)
@@ -27,7 +34,7 @@ const resultHeaders = Handlebars.compile(`
 const resultItem = Handlebars.compile(`
 	<div class="pw-result-item">
 		<h1 class="title is-2 has-text-weight-bold has-text-info has-text-centered">
-			$\{{ total }}
+			<small class="has-text-weight-normal title is-4 has-text-info">≈ </small>$\{{ total }}
 		</h1>
 
 		<h1 class="mb-1 subtitle is-5 has-text-centered">
@@ -36,8 +43,8 @@ const resultItem = Handlebars.compile(`
 
 		<p class="heading has-text-centered">
 			{{ CH.info.seating }}<br>
-			<a class="ch-link" href="/CH-{{ id }}.pdf" target="_blank">
-				View official rates
+			<a class="ch-link has-text-weight-bold" href="/CH-{{ id }}.pdf" target="_blank">
+				Rates Document we used
 			</a>
 		</p>
 
@@ -59,21 +66,37 @@ const resultItem = Handlebars.compile(`
 						<div class="item-rate">$\{{ rate }}</div>
 					</div>
 
-					<div class="item-mid">
+					<div class="item-mid has-text-weight-bold has-text-primary">
 						<div class="item-qty">× {{ qty }}</div>
 					</div>
 
 					{{#if qtyB}}
-						<div class="item-mid">
+						<div class="item-mid has-text-weight-bold has-text-primary">
 							<div class="item-qty">× {{ qtyB }}</div>
 						</div>
 					{{/if}}
 
 					<div class="item-right">
-						<div class="item-result">$\{{ result }}</div>
+						<div class="item-result">
+							{{#if_eq result 0}}
+								Free
+							{{else}}
+								$\{{ result }}
+							{{/if_eq}}
+						</div>
 					</div>
 				</div>
 			{{/CH.fees}}
+
+			{{#if CH.info.extraInfo}}
+				<div class="pw-fee-item">
+					<div class="item-left">
+						<div class="item-description">
+							{{CH.info.extraInfo}}
+						</div>
+					</div>
+				</div>
+			{{/if}}
 		</div>
 	</div>
 `)
