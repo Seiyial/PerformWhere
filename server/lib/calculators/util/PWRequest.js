@@ -127,7 +127,7 @@ class PWRequest {
 	// creates a peak surcharge calcItem.
 	// > label: feel free to input 'Concert' or 'Soundcheck' or nothing at all, and it will prefill for you.
 	// rate and qty MUST NOT be string
-	calcPeakSurcharge({ label, description, rate, qty, onlyIfPeakTypes = null }) {
+	calcPeakSurcharge({ label, description, rate, qty = 1, onlyIfPeakTypes = null }) {
 
 		// if user set a value to `onlyIfPeakTypes`,
 		// and if this request's date does not fall on any of the peaks specified for this request (specified in `onlyIfPeakTypes`'s value),
@@ -135,8 +135,7 @@ class PWRequest {
 		if (onlyIfPeakTypes && !this.isPeak(onlyIfPeakTypes)) {
 			return "Peak surcharge not applicable"
 		}
-		const calcItem = { description, rate }
-		calcItem.qty = qty || 1
+		const calcItem = { description, rate, qty }
 		calcItem.label = label || 'Peak Surcharge'
 		if (label === 'Concert' || label === 'Soundcheck' || label === 'Rehearsal') {
 			calcItem.label = `${label} Peak Surcharge`
@@ -149,7 +148,11 @@ class PWRequest {
 		const calcItem = { label, description, rate }
 		calcItem.qtyB = pax + ' pax'
 		calcItem.qty = hrs + ' h'
-		calcItem.result = rate * pax * hrs
+		if (typeof(pax) === 'string' || typeof(hrs) === 'string') {
+			calcItem.result = 0
+		} else {
+			calcItem.result = rate * pax * hrs
+		}
 		return this.insertCalcItem(calcItem)
 	}
 }
