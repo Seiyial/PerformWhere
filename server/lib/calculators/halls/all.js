@@ -1,7 +1,7 @@
 // Concert Hall IDs
 const CHIDs = [
-	// 'EspCH', 'EspRS', 'NAFALFT', 'SCC', 'SCCC', 'SOTA', 'VCH'
-	'EspCH', 'EspRS', 'VCH', 'SOTA', 'NAFALFT'
+	// 'EspCH', 'EspRS', 'NAFALFT', 'SCH', 'SCCC', 'SOTA', 'VCH'
+	'EspCH', 'EspRS', 'VCH', 'SOTA', 'NAFALFT', 'SCH', 'SCCC'
 ]
 
 // Concert Hall Data

@@ -47,7 +47,7 @@ module.exports = {
 				darkDayRate: 1700.00
 			},
 			'private': {
-				perfBaseFee: [1926.00, 'Incl. GST, or 18% of Box Office sales for ticketed events (subject to GST), whichever is higher'],
+				perfBaseFee: [1926.00, 'Incl. GST, 18% of Box Office sales for ticketed events (subject to GST), whichever is higher'],
 				perfBaseHrs: 4.5,
 				perfAddHr: 561.75,
 				peakSurcharge: 1926.00,
@@ -134,13 +134,16 @@ module.exports = {
 			})
 		}
 
+		const _crewDur = (Request.dur > 4 ? Request.dur : 4) +
+			(Request.rehDur > 4 ? Request.rehDur : 4)
+
 		// Tech Crew
 		Request.calcManHr({
 			label: 'Technical Crew',
 			description: fr.techCrewPerPaxPerHr[1],
 			rate: fr.techCrewPerPaxPerHr[0],
 			pax: Request.numTC,
-			hrs: (Request.dur + Request.rehDur)
+			hrs: _crewDur
 		})
 
 		// Ushers
@@ -148,7 +151,7 @@ module.exports = {
 			label: 'Ushers',
 			description: `First ${fr.usherFreeNum} free`,
 			pax: fr.usherFreeNum,
-			hrs: (Request.dur + Request.rehDur),
+			hrs: (Request.dur > 5 ? Request.dur : 5),
 			rate: 0
 		})
 
@@ -156,7 +159,7 @@ module.exports = {
 			Request.calcManHr({
 				label: 'Additional Ushers',
 				pax: (Request.numUsh - fr.usherFreeNum),
-				hrs: (Request.dur + Request.rehDur),
+				hrs: (Request.dur > 5 ? Request.dur : 5),
 				rate: fr.usherAddManHr
 			})
 		}

@@ -3,6 +3,7 @@ import axios from 'axios'
 import { MDCRipple } from '@material/ripple'
 import { sk } from '../env/sessionSecret'
 import { renderResults } from './scripts/renderers'
+import $ from 'jquery'
 
 // Ripple
 // const ripples = [
@@ -39,6 +40,9 @@ const handleResults = ({ data: { success, data, errMsg, errors, peakTypes }}) =>
 	if (success) {
 		renderResults({ data, errors, peakTypes })
 		document.getElementById('pw-results-area').classList.add('show')
+		setTimeout(() => $('html, body').animate({
+			scrollTop: $('#pw-results-area').offset().top
+		}), 200)
 	}
 }
 

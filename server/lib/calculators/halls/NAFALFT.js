@@ -39,7 +39,7 @@ module.exports = {
 		// Base Rate
 		Request.calcBaseRate({
 			label: 'Concert first 4h',
-			description: 'or 15% Box Office sales, whichever is higher',
+			description: r.perfBaseFee[1],
 			baseRate: r.perfBaseFee[0],
 			baseHrs: r.perfBaseHrs
 		})
@@ -92,7 +92,8 @@ module.exports = {
 		}
 
 		// NAFA has slightly more complicated rules on Crew
-		const _crewDur = Request.dur + Request.rehDur
+		const _crewDur = (Request.dur > 4 ? Request.dur : 4) +
+			(Request.rehDur > 4 ? Request.rehDur : 4)
 		const _crewHrs = _crewDur > 4 ? _crewDur : 4
 
 		let _wkDayTechCrewNote = '',
@@ -115,7 +116,7 @@ module.exports = {
 
 		Request.calc({
 			label: 'Ushers (N/A)',
-			description: "For NAFA LFT, ushers weren't on the hiring rates listing.",
+			// description: "For NAFA LFT, ushers weren't on the hiring rates listing.",
 			qty: 0,
 			rate: 0
 		})

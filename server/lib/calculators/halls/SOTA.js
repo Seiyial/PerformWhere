@@ -10,7 +10,7 @@ module.exports = {
 
 		const ratesByType = {
 			'p-arts': {
-				perfBaseFee: [2400.00, 'Or 15% Box Office sales, whichever is higher.'],
+				perfBaseFee: [2400.00, '15% Box Office sales, whichever is higher.'],
 				perfBaseHrs: 4,
 				perfAddHr: 650.00,
 				peakSurcharge: 500.00,
@@ -22,7 +22,7 @@ module.exports = {
 				darkDayRate: 1000.00
 			},
 			'np-arts': {
-				perfBaseFee: [2200.00, 'Or 15% Box Office sales, whichever is higher. DISCLAIMER: SOTA\'s rates document states that "NPO rates apply only to Singapore government agencies and registered non-profit organizations."'],
+				perfBaseFee: [2200.00, '15% Box Office sales, whichever is higher. DISCLAIMER: SOTA\'s rates document states that "NPO rates apply only to Singapore government agencies and registered non-profit organizations."'],
 				perfBaseHrs: 4,
 				perfAddHr: 600.00,
 				peakSurcharge: 500.00,
@@ -40,7 +40,7 @@ module.exports = {
 		// Base Rate
 		Request.calcBaseRate({
 			label: 'Concert first 4h',
-			description: 'or 15% Box Office sales, whichever is higher',
+			description: '15% Box Office sales, whichever is higher',
 			baseRate: r.perfBaseFee[0],
 			baseHrs: r.perfBaseHrs
 		})
@@ -90,7 +90,8 @@ module.exports = {
 			})
 		}
 
-		const _crewDur = Request.dur + Request.rehDur
+		const _crewDur = (Request.dur > 4 ? Request.dur : 4) + 
+			(Request.rehDur > 4 ? Request.rehDur : 4)
 		const _crewHrs = _crewDur > 4 ? _crewDur : 4
 
 		// Helpers

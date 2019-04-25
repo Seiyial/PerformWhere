@@ -9,7 +9,7 @@ module.exports = {
 
 		const ratesByType = {
 			'p-arts': {
-				perfBaseFee: [3200, 'Or 15% Box Office sales, whichever is higher. For VCH, PerformWhere IS ASSUMING this is a ticketed event. If not, refer to the rates document'],
+				perfBaseFee: [3200, '15% Box Office sales, whichever is higher. For VCH, PerformWhere IS ASSUMING this is a ticketed event. If not, refer to the rates document'],
 				perfBaseHrs: 4,
 				perfAddHr: 950.00,
 				peakSurcharge: 800.00,
@@ -21,7 +21,7 @@ module.exports = {
 				darkDayRate: 1100.00
 			},
 			'np-arts': {
-				perfBaseFee: [2800.00, 'Or 15% Box Office sales, whichever is higher. For VCH, PerformWhere IS ASSUMING this is a ticketed event. If not, refer to the rates document'],
+				perfBaseFee: [2800.00, '15% Box Office sales, whichever is higher. For VCH, PerformWhere IS ASSUMING this is a ticketed event. If not, refer to the rates document'],
 				perfBaseHrs: 4,
 				perfAddHr: 750.00,
 				peakSurcharge: 600.00,
@@ -98,13 +98,14 @@ module.exports = {
 			})
 		}
 
-		const _stageDur = Request.dur + Request.rehDur
+		const _crewDur = (Request.dur > 4 ? Request.dur : 4) +
+			(Request.rehDur > 4 ? Request.rehDur : 4)
 
 		// Helpers
 		Request.calcManHr({
 			label: 'Technical Crew',
 			description: 'Minimum 4 hours for each hire. Add $10 per person per hour if hiring is midnight~8am',
-			hrs: (_stageDur > 4 ? _stageDur : 4),
+			hrs: (_crewDur > 4 ? _crewDur : 4),
 			pax: Request.numTC,
 			rate: 23
 		})
