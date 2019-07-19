@@ -20,17 +20,31 @@
 		<meta name="theme-color" content="#ffffff">
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta charset="utf-8" />
+		<meta name="description"
+			content="Seamlessly calculate venue hire prices for your concert/performance. Instantly compare costs for all venues in Singapore!! Includes Esplanade, VCH, SCCC, SCH and more!" />
+		<meta name="keywords" content="fees, concert, hall, venue, hire, rates, compare, calculate, calculator, singapore, sg, esplanade, victoria, sccc, sch" />
+		<meta name="author" content="Seiyial" />
+		<meta name="copyright" content="Lim Say Hao" />
 	</head>
 
 	<body>
 		<div class="pw-interface-wrapper mt-2">
 			<div class="pw-interface">
-				<h1 class="pw-title title has-text-primary is-1 has-text-weight-light t-ctr">Perform Where?</h1>
-				<h2 class="subtitle is-6 has-text-centered syx-font has-text-info mb-4"><i>perform</i>那里 | どこで演奏かい | uwu wuere wull we
-					purfworm?</h2>
+				<h1 class="pw-title title has-text-primary is-1 has-text-weight-light t-ctr">
+					Perform Where?
+				</h1>
+
+				<h2 class="subtitle is-6 has-text-centered syx-font has-text-info mb-4">
+					<i>perform</i>那里 | どこで演奏かい | uwu wuere wull we
+					purfworm?
+				</h2>
 				<p class="has-text-centered pw-instruction">
-					Get price estimates for all concert halls instantly! Based on their published rates. <br>Simply fill up the form.
+					Seamlessly calculate venue hire prices for your concert/performance.<br>Instantly compare costs for all venues in Singapore!!<br><br>
+					
+					Simply fill up the form below!
 				</p>
 			</div>
 		</div>
@@ -118,6 +132,33 @@
 						<input type="text" class="input pw-input has-text-centered" placeholder="(min)" id="input-numUshers">
 					</label>
 					<label class="column is-3-tablet is-6-mobile">
+						<span class="label has-text-weight-normal">Want a Piano?</span>
+						<div class="select pw-select">
+							<select id="input-requirePiano">
+								<option value="no" selected="selected">None required</option>
+								<option value="steinway">Steinway preferred</option>
+								<option value="yamaha">Yamaha preferred</option>
+							</select>
+						</div>
+					</label>
+					<label class="column is-3-tablet is-6-mobile">
+						<span class="label has-text-weight-normal">Projector?</span>
+						<div class="select pw-select is-fullwidth">
+							<select id="input-requireProjector" name="want">
+								<option value="no" selected="selected">No</option>
+								<option value="yes">Yes</option>
+							</select>
+						</div>
+					</label>
+					<label class="column is-3-tablet is-6-mobile">
+						<span class="label has-text-weight-normal has-text-grey">Coming soon</span>
+						<input type="text" class="input pw-input has-text-centered" disabled>
+					</label>
+					<label class="column is-3-tablet is-6-mobile">
+						<span class="label has-text-weight-normal has-text-grey">Coming soon</span>
+						<input type="text" class="input pw-input has-text-centered" disabled>
+					</label>
+					<label class="column is-3-tablet is-6-mobile">
 						<span class="label has-text-weight-normal has-text-grey">Coming soon</span>
 						<input type="text" class="input pw-input has-text-centered" disabled>
 					</label>
@@ -144,18 +185,39 @@
 
 		<div class="pw-interface-wrapper pw-footer">
 			<div class="pw-interface">
-				<h1 class="pl-2 pr-2 pw-dedication has-text-info subtitle is-6 has-text-centered has-text-weight-light syx-font">
-					made with ❤️ for
+				<h1 class="pl-2 pr-2 pw-dedication has-text-info subtitle is-6 has-text-centered has-text-weight-light syx-font lh150">
+					Made with 💛for
 					<a href="https://www.facebook.com/AudioImageWindEnsemble/" target="_blank">
-						AudioImage Wind Ensemble
+						AIWE
 					</a>
-					by
-					<a href="https://facebook.com/Seiyial" target="_blank">
-						SYXWORKS
-					</a>🦉
-					<!--
-									All the SG community orchestras and bands too!
-								-->
+					and the local orchestra community 🙌🏻<br> Check me out at:
+
+					<div class="pw-footer-links">
+						<a href="https://m.me/Seiyial" target="_blank"><b>
+							Seiyial 🦉
+						</b></a>
+						<span>|</span>
+						<a href="https://seiyianworks.com" target="_blank">
+							Website
+						</a>
+						<span>|</span>
+						<a href="https://facebook.com/Seiyial" target="_blank">
+							Facebook
+						</a>
+						<span>|</span>
+						<a href="https://github.com/Seiyial" target="_blank">
+							GitHub
+						</a>
+						<span>|</span>
+						<a href="https://github.com/Seiyial/PerformWhere/issues" target="_blank">
+							Feedback
+						</a>
+						<span>|</span>
+						<a href="mailto:sayhao@seiyianworks.com" target="_blank">
+							Email
+						</a>
+					</div>
+					
 				</h1>
 			</div>
 		</div>
