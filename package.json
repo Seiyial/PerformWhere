@@ -7,7 +7,6 @@
   "author": "Seiyial <seiyial@seiyianworks.io>",
   "license": "UNLICENSED",
   "devDependencies": {
-    "@mobylogix/public-holidays": "^0.1.2",
     "concurrently": "^4.1.0",
     "luxon": "^1.12.1"
   },
