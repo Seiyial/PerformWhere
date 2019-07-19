@@ -21,9 +21,12 @@ $syx_spacer: 16px;
 	font-family: $syx-font;
 }
 
+html {
+	background-color: $bg !important;
+}
+
 body {
 	padding-top: 2vh;
-	background-color: $bg;
 }
 
 body b {
