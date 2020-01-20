@@ -4,12 +4,13 @@ import { MDCRipple } from '@material/ripple'
 import { sk } from '../env/sessionSecret'
 import { renderResults } from './scripts/renderers'
 import $ from 'jquery'
+import mixpanel from 'mixpanel-browser'
 
-// Ripple
-// const ripples = [
-// 	document.querySelector('.pw-interface--clickable')
-// ].map((e) => new MDCRipple(e))
-// console.log('sk', sk)
+try {
+	mixpanel.init('73030688c322f134d0ed742ea9c5ae7a')
+} catch (e) {
+	console.error('mixpanel', e)
+}
 
 const submitForm = () => {
 	setLoading()
@@ -21,12 +22,17 @@ const submitForm = () => {
 		'eventType', 'duration', 'soundcheckDuration',
 		'date', 'numDarkDays', 'numTechCrew', 'numUshers'
 	]
-	
+
 	fields.forEach((i) => {
 		params[i] = document.getElementById(`input-${i}`).value
 	})
-
+	
 	console.log('Params', params)
+	try {
+		mixpanel.track('get_prices_by_reqs', params)
+	} catch (e) {
+		console.error('mixpanel', e)
+	}
 	
 	axios.post('/api', { params, query: 'get_prices_by_reqs', auth: sk })
 	.then(handleResults)

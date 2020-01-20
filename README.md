@@ -2,8 +2,6 @@
 
 Calculate the prices for using various Singapore concert halls for your symphony orchestra, or wind ensemble/band concert projects. Check it out at [performwhere.syx.li](https://performwhere.syx.li).
 
-
-
 ## Development
 
 ```bash
@@ -17,7 +15,7 @@ yarn start # or npm run start
 
 PerformWhere's backend is composed of `Calculators`, one calculator per concert hall we know of in Singapore. Each calculator takes a `Request` object and uses its attributes and instance methods to tabulate concert hall fees.
 
-### `Request` Object Attributes:</h4>
+### `Request` Object Attributes:
 
 #### `Request.evType` (string)
 
