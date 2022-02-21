@@ -7,12 +7,14 @@
   "author": "Seiyial <seiyial@seiyianworks.io>",
   "license": "UNLICENSED",
   "dependencies": {
-    "luxon": "^1.12.1",
-    "nodemon": "^1.18.10",
-    "simples": "^0.9.0-alpha-8"
+    "luxon": "^2.3.0",
+    "simples": "0.9.0-alpha-9"
   },
   "scripts": {
     "start": "cd .. && yarn run start",
     "dev": "nodemon server.js"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }

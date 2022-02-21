@@ -7,8 +7,8 @@
   "author": "Seiyial <seiyial@seiyianworks.io>",
   "license": "UNLICENSED",
   "devDependencies": {
-    "concurrently": "^4.1.0",
-    "luxon": "^1.12.1"
+    "concurrently": "^7.0.0",
+    "luxon": "2.3.0"
   },
   "scripts": {
     "gensecret": "cd env && node generateSecret.js",
